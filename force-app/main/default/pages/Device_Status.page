@@ -1,0 +1,27 @@
+<apex:page standardController="Case" showHeader="false" applyHtmlTag="false">
+<html>
+<head>
+<script language="javascript">
+    function showDeviceStatus() {
+        var assetNumber = '{!case.asset_number__c}';
+        var iFrame = document.getElementById('resultIframe');
+        var iFrameWrapper = document.getElementById('iFrameWrapper');
+        var url = "https://rcq.lifewatch.com/crm/getdevicedata.asp?assetNo=";
+        //Append the parameters to the new page URL
+        var newTarget = url + assetNumber
+        // set source of iframe and show it
+        iFrame.src = newTarget;
+        iFrameWrapper.style.display = 'block';
+    }
+</script>
+</head>
+<body>
+    <button id="showDeviceStat" onclick="showDeviceStatus()">Show Device Status</button>
+    <!-- use a wrapper to provide scrolling -->
+    <p><div id="iFrameWrapper" style="display:none;height:300px;width=400px;overflow-x:scroll;">
+        <iframe id="resultIframe" src=""/>
+    </div></p>
+</body>
+</html>
+
+</apex:page>

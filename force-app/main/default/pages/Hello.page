@@ -1,0 +1,10 @@
+<apex:page sidebar="false" showheader="true" >
+ {! $User.FirstName & ' ' & $User.LastName}
+ <p>Today's Date is {! TODAY()}</p>
+ <p>Next week it will be {! TODAY() + 7}</p>
+ 
+ <p>Is it true? {!if (contains('salesforce.com','force.com'),'Yep','Nah')}</p>
+ {! if (day(today())>14,'After the 14th', 'On or before the 14th')}
+ 
+ 
+</apex:page>

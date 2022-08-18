@@ -1,0 +1,7 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+
+  <aura:attribute name="flowName" type="String" description="API name of the Flow to display."/>
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+  <lightning:flow aura:id="flow" onstatuschange="{!c.handleFlowStatusChange}"/>
+</aura:component>

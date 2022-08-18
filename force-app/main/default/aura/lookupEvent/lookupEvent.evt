@@ -1,0 +1,6 @@
+<aura:event type="COMPONENT" description="pass lookup value between components">
+    <aura:attribute name="objectName" type="String"/>
+    <aura:attribute name="fieldName" type="String"/>
+    <aura:attribute name="selectRecordId" type="String"/>
+    <aura:attribute name="label" type="String"/>
+</aura:event>

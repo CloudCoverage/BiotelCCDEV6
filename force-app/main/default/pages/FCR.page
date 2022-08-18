@@ -1,0 +1,20 @@
+<apex:page standardcontroller="FCR_Report__c" >
+  <apex:form >
+  <apex:pageblock title="Field Coaching Report">
+  Hello {!$User.FirstName}! You are viewing the Field Coaching Report for {!FCR_Report__c.Account_Executive2__r.Name} currently assigned to {!FCR_Report__c.Owner.name}  ({!FCR_Report__c.name}) 
+  <p/>
+  <apex:pageblocksection title="SALES CRITICAL COMPETENCIES" columns="1">
+  <apex:inputfield value="{!FCR_Report__c.Clinical_Knowledge_Rating__c}" label="Effectively understands disease states and clinical information for appropriate messaging." /> <p/>
+  </apex:pageblocksection>
+    <p/>
+  <apex:pageblocksection title="{!FCR_Report__c.ManagerofRecordOwner__c + ' Comments'}" columns="1">
+  <apex:inputtext value="{!FCR_Report__c.Manager_Comments__c}" label="Comment 1" style="width: 600px; height: 40px"/> <p/>
+  </apex:pageblocksection>
+  <apex:pageBlockButtons >
+<apex:commandButton action="{!save}" value="Save"/>          
+    <apex:commandButton action="{!edit}" value="Edit"/>                   
+       </apex:pageBlockButtons>  
+  </apex:pageblock>
+  </apex:form>
+  
+</apex:page>

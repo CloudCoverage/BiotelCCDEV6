@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Faulty_Device_Notification</fullName>
+        <ccEmails>DL-DistributionSupportTeam@cardionet.com</ccEmails>
+        <description>Faulty Device Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <recipients>
+            <recipient>tina.fairing@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/FaultyDeviceNotification</template>
+    </alerts>
+    <alerts>
+        <fullName>Lost_Inventory_Update</fullName>
+        <ccEmails>DL-DistributionSupportTeam@cardionet.com</ccEmails>
+        <description>Lost Inventory Update</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <recipients>
+            <recipient>tina.fairing@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/LostInventoryNotification</template>
+    </alerts>
+    <alerts>
+        <fullName>Lost_Inventory_UpdateLW</fullName>
+        <ccEmails>DL-Logistics@gobio.com</ccEmails>
+        <description>Lost Inventory Update LW</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <recipients>
+            <recipient>jandjelic@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>tina.fairing@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>LifeWatch_Automated_Templates/LostInventoryNotificationLw</template>
+    </alerts>
+    <alerts>
+        <fullName>Lost_Inventory_Update_Status_Change</fullName>
+        <description>Lost Inventory Update Status Change</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <recipients>
+            <recipient>tina.fairing@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>LifeWatch_Automated_Templates/LW_Lost_Inventory_Update_Status_Change</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>LostInventoryApproved</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approved by RSD</literalValue>
+        <name>LostInventoryApproved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>LostInventoryDenied</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Denied</literalValue>
+        <name>LostInventoryDenied</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>LostInventoryRecalled</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Recalled</literalValue>
+        <name>LostInventoryRecalled</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>LostInventorySubmitted</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Submitted</literalValue>
+        <name>LostInventorySubmitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Faulty Device Notification</fullName>
+        <actions>
+            <name>Faulty_Device_Notification</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Inventory_Update__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Faulty Device Notification - Cardionet</value>
+        </criteriaItems>
+        <description>notification to Distribution of faulty device</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>LW Lost Inventory</fullName>
+        <active>false</active>
+        <criteriaItems>
+            <field>Inventory_Update__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Lifewatch Lost Inventory</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>LW Lost Inventory Update - Requires More Information</fullName>
+        <actions>
+            <name>Lost_Inventory_Update_Status_Change</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 or 2</booleanFilter>
+        <criteriaItems>
+            <field>Inventory_Update__c.Review_Status__c</field>
+            <operation>equals</operation>
+            <value>Requires More Information</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Inventory_Update__c.Comments_from_Logistics__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

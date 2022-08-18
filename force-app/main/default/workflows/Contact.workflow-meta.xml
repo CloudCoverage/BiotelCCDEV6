@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>LW_Contact_New_User_Request</fullName>
+        <description>LW Contact New User Request</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email_Notification_1__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>LastModifiedById</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>LifeWatch_Automated_Templates/LW_Contact_New_User_Request</template>
+    </alerts>
+    <alerts>
+        <fullName>Pardot_Contact_Requests_Info</fullName>
+        <description>Pardot Contact Requests Info</description>
+        <protected>false</protected>
+        <recipients>
+            <type>campaignMemberDerivedOwner</type>
+        </recipients>
+        <recipients>
+            <recipient>annmarie.scheuer@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>geof.capodanno@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>jennifer.lavelle@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>tina.fairing@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Pardot_Interested_Contact_Notification</template>
+    </alerts>
+</Workflow>

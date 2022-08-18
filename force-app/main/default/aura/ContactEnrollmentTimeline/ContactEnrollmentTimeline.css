@@ -1,0 +1,21 @@
+.THIS .slds-timeline__item_case:before {
+    background: #f2cf5b !important;
+}
+
+.THIS .slds-timeline__item_orders:before {
+    background: #769ed9 !important;
+}
+
+.THIS .fakelinkTitle{
+    color:#000000;
+    font-weight: bold;
+}
+
+.THIS .fakelink{
+    color:#000000;
+    font-weight: bold;
+}
+
+.THIS .norm{
+    font-weight: normal !important;
+}

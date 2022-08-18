@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>AE_Notification_of_Past_Due_Cardionet_Order</fullName>
+        <description>AE Notification of Past Due Cardionet Order</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>tina.fairing@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Auto_Replenish_Notification</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Date_Par_Turned_Off</fullName>
+        <description>update the date the par level was turned off</description>
+        <field>Date_Par_Turned_Off__c</field>
+        <formula>TODAY()</formula>
+        <name>Date Par Turned Off</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Auto Replenish Notification</fullName>
+        <active>false</active>
+        <criteriaItems>
+            <field>Enrolled_Service__c.Product__c</field>
+            <operation>equals</operation>
+            <value>MCOT 2:1,MCOTos,wEvent,Event,MCOT2in1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Enrolled_Service__c.Cardionet_Last_RX__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Enrolled_Service__c.AutoReplenishment_On__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>AE_Notification_of_Past_Due_Cardionet_Order</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Enrolled_Service__c.Cardionet_Last_RX__c</offsetFromField>
+            <timeLength>25</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Par Level Turned Off</fullName>
+        <actions>
+            <name>Date_Par_Turned_Off</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>check if par level was turned off</description>
+        <formula>and(ischanged(AutoReplenishment_On__c), AutoReplenishment_On__c =False)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

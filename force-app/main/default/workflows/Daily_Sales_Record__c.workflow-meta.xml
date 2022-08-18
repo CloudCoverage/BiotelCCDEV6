@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Mark_As_Current_Month</fullName>
+        <field>is_Current_Month__c</field>
+        <literalValue>1</literalValue>
+        <name>Mark As Current Month</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Mark_Current_Month_As_False</fullName>
+        <field>is_Current_Month__c</field>
+        <literalValue>0</literalValue>
+        <name>Mark Current Month As False</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Mark_Last_Month_As_False</fullName>
+        <field>Is_Last_Month__c</field>
+        <literalValue>0</literalValue>
+        <name>Mark Last Month As False</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Mark_as_Last_Month</fullName>
+        <field>Is_Last_Month__c</field>
+        <literalValue>1</literalValue>
+        <name>Mark as Last Month</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Remoce_Last_Month</fullName>
+        <field>Is_Last_Month__c</field>
+        <literalValue>0</literalValue>
+        <name>Remoce Last Month</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Remove_Current_Month</fullName>
+        <field>is_Current_Month__c</field>
+        <literalValue>0</literalValue>
+        <name>Remove  Current Month</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Activity Overdue</fullName>
+        <active>false</active>
+        <formula>Service__r.Account__r.LastActivityDate + 60 = TODAY()</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Mark As Current Month</fullName>
+        <actions>
+            <name>Mark_As_Current_Month</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(MONTH(Date__c)= MONTH(TODAY()),
+    YEAR(TODAY())=YEAR(Date__c), 
+    is_Current_Month__c = FALSE)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Mark As Last Month</fullName>
+        <actions>
+            <name>Mark_Current_Month_As_False</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Mark_as_Last_Month</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>IF(
+  AND(
+   MONTH(TODAY())=1,
+   MONTH(Date__c)=12,(YEAR(TODAY())-1)=YEAR(Date__c)),
+  TRUE,
+  IF(AND(
+      MONTH(TODAY())-
+      MONTH(Date__c)=1,YEAR(TODAY())=YEAR(Date__c)),
+  TRUE,
+  FALSE))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Mark Current Month %26 Last Month</fullName>
+        <active>false</active>
+        <criteriaItems>
+            <field>Daily_Sales_Record__c.CreatedDate</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Mark_as_Last_Month</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <actions>
+                <name>Remove_Current_Month</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Daily_Sales_Record__c.Last_Day_of_the_Month__c</offsetFromField>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Remoce_Last_Month</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Daily_Sales_Record__c.Last_Day_of_Next_Month__c</offsetFromField>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>More Than 2 Months Old</fullName>
+        <actions>
+            <name>Mark_Last_Month_As_False</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>if(MONTH(TODAY()) = 1, 
+      if(Date__c &lt; Date(YEAR(TODAY())-1,12,1),TRUE,FALSE),
+      if(Date__c &lt; Date(YEAR(TODAY()),MONTH(TODAY())-1,1),TRUE,FALSE))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>update owner</fullName>
+        <active>false</active>
+        <criteriaItems>
+            <field>Daily_Sales_Record__c.Backend_ID__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

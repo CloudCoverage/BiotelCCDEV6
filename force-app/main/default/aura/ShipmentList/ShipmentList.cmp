@@ -1,0 +1,60 @@
+<aura:component  controller="ShipmentController" implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:appHostable,force:LightningQuickAction,lightning:isUrlAddressable" access="global">
+
+    <aura:attribute name="shipments" type="sObject[]" default="[]"/> 
+    <aura:attribute name="backendId" type="String" />
+    <aura:attribute name="recCnt" type="Integer"/>
+    <aura:attribute name="dataLoaded"           type="Boolean" default="false"/> 
+
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+     <div style="width=100%">
+     
+      <div style="position:relative">
+        <div class="slds-page-header slds-page-header_record-home">
+          <div class="slds-page-header__row">
+            <div class="slds-grid slds-wrap">
+              <div class="slds-size_1-of-1 slds-page-header__title">      
+                <lightning:icon iconName="custom:custom98" size="small"/>
+                Shipments ({!v.recCnt})
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <aura:if isTrue="{!!v.dataLoaded}">
+        <lightning:spinner aura:id="spinner" variant="brand" size="small"/>
+            
+          <div class="slds-m-vertical_small">
+                &nbsp;
+            </div>
+            
+        </aura:if>
+    
+        <aura:if isTrue="{!v.dataLoaded}">
+      <lightning:card>
+          <div class="slds-grid slds-wrap">
+                  <div class="slds-max-small-hide slds-col slds-size_2-of-12 slds-p-around_xx-small slds-border_bottom"><STRONG>SHIPMENT NUMBER</STRONG></div>
+                  <div class="slds-max-small-hide slds-col slds-size_2-of-12 slds-p-around_xx-small slds-border_bottom"><STRONG>KIT NAME</STRONG></div>
+                  <div class="slds-max-small-hide slds-col slds-size_2-of-12 slds-p-around_xx-small slds-border_bottom"><STRONG>DELIVER BY DATE</STRONG></div>
+                  <div class="slds-max-small-hide slds-col slds-size_2-of-12 slds-p-around_xx-small slds-border_bottom"><STRONG>STATUS</STRONG></div>
+                  <div class="slds-max-small-hide slds-col slds-size_3-of-12 slds-p-around_xx-small slds-border_bottom"><STRONG>TRACKING NUMBER</STRONG>
+        </div>
+                  <aura:iteration items="{!v.shipments}" var="sh">
+                      <div class="slds-small-show-only slds-col slds-size_1-of-3 slds-p-around_xx-small">Shipment Number:</div>
+                      <div class="slds-col slds-size_2-of-12 slds-large-size_2-of-12 slds-p-around_xx-small"><a href="javascript:void(0);"  id="{!sh.BackendId}" onclick="{!c.goToDetail}">{!sh.Name}</a></div>
+                      <div class="slds-small-show-only slds-col slds-size_1-of-3 slds-p-around_xx-small">Kit Name:</div>
+                      <div class="slds-col slds-size_2-of-12 slds-large-size_2-of-12 slds-p-around_xx-small">{!sh.KitName}</div>
+                      <div class="slds-small-show-only slds-col slds-size_1-of-3 slds-p-around_xx-small">Deliver By Date:</div>
+                      <div class="slds-col slds-size_2-of-12 slds-large-size_2-of-12 slds-p-around_xx-small">{!sh.DeliverByDateString}</div>
+                      <div class="slds-small-show-only slds-col slds-size_1-of-3 slds-p-around_xx-small">Status:</div>
+                      <div class="slds-col slds-size_2-of-12 slds-large-size_2-of-12 slds-p-around_xx-small">{!sh.Status}</div>                     
+                      <div class="slds-small-show-only slds-col slds-size_1-of-3 slds-p-around_xx-small">Tracking Number:</div>
+                      <div class="slds-col slds-size_2-of-12 slds-large-size_3-of-12 slds-p-around_xx-small"><a href="javascript:void(0);" data-value="{!sh.TrackingNumber}" onclick="{!c.goToTracking}">{!sh.TrackingNumber}</a></div>
+                </aura:iteration>            
+        </div>
+      </lightning:card>
+    </aura:if>
+      </div>
+    </div>
+</aura:component>

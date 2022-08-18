@@ -1,0 +1,70 @@
+<aura:component  controller="ShipmentController" implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:appHostable,force:LightningQuickAction,lightning:isUrlAddressable" access="global">
+
+    <aura:attribute name="sh" type="sObject" default=""/>
+    <aura:attribute name="shItem" type="sObject" default=""/>
+
+    <!--<aura:handler name="init" action="{!c.init}" value="{!this}" />-->
+    
+    <lightning:card>
+    <div class="slds-page-header">
+            <div class="slds-grid slds-wrap">
+            <div class="slds-size_1-of-13">      
+                <lightning:icon iconName="custom:custom13" size="medium"/>
+            </div>
+            <div class="slds-size_12-of-13">      
+                    &nbsp;&nbsp;Shipment Item<br/><span class="slds-page-header__title">&nbsp;{!v.shItem.Name}</span>
+            </div>                    
+            </div>
+    </div>
+</lightning:card>
+
+    <lightning:card>
+        <div class="slds-scope">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-size_1-of-1 slds-large-size_1-of-2 slds-p-around_xx-small">
+                    <div>Shipment</div>
+                    <div class="slds-border_bottom" title="Hyperlink">
+                        <a href="javascript:void(0);"  onclick="{!c.goToOrder}">{!v.sh.Name}</a>
+                    </div>
+                </div>
+                <div class="slds-size_1-of-1 slds-max-small-hide  slds-p-around_xx-small">&nbsp;</div>
+                <div class="slds-size_1-of-1 slds-large-size_1-of-2 slds-p-around_xx-small">
+                    <div class="slds-text-title slds-truncate">Asset Serial Number</div>
+                    <div class="slds-border_bottom">
+                        <lightning:formattedText value="{!v.shItem.AssetSerialNumber}"/>
+                    </div>
+                </div>    
+                <div class="slds-size_1-of-1 slds-max-small-hide  slds-p-around_xx-small">&nbsp;</div>
+        
+                <div class="slds-size_1-of-1 slds-large-size_1-of-2 slds-p-around_xx-small">
+                    <div class="slds-text-title slds-truncate">Shipment Item Backend Id</div>
+                    <div class="slds-border_bottom">
+                        <lightning:formattedText value="{!v.shItem.BackendId}"/>
+                    </div>
+                </div>
+                <div class="slds-size_1-of-1 slds-max-small-hide  slds-p-around_xx-small">&nbsp;</div>
+
+                <div class="slds-size_1-of-1 slds-large-size_1-of-2 slds-p-around_xx-small">
+                    <div class="slds-text-title slds-truncate">Description</div>
+                    <div class="slds-border_bottom">
+                        <lightning:formattedText value="{!v.shItem.Description}"/>
+                    </div>
+                </div> 
+                <div class="slds-size_1-of-1 slds-max-small-hide  slds-p-around_xx-small">&nbsp;</div>
+
+            
+                <div class="slds-size_1-of-1 slds-large-size_1-of-2 slds-p-around_xx-small">
+                    <div class="slds-text-title slds-truncate">Product Code</div>
+                    <div class="slds-border_bottom">
+                        <lightning:formattedText value="{!v.shItem.Name}"/>
+                    </div>
+                </div>
+                <div class="slds-size_1-of-1 slds-max-small-hide  slds-p-around_xx-small">&nbsp;</div>
+
+            </div>    
+        
+        </div>    
+              
+    </lightning:card>
+
+</aura:component>

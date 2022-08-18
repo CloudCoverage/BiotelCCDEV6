@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <apiVersion>54.0</apiVersion>
+    <dynamicChoiceSets>
+        <name>DraftReason</name>
+        <dataType>Multipicklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Draft_Reason__c</picklistField>
+        <picklistObject>Fax_Enrollment__c</picklistObject>
+    </dynamicChoiceSets>
+    <interviewLabel>Fax En {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Fax Enrollment Draft reason</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordUpdates>
+        <name>Fax_DraftReason</name>
+        <label>Fax DraftReason</label>
+        <locationX>176</locationX>
+        <locationY>278</locationY>
+        <faultConnector>
+            <targetReference>Error_Message</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Draft_Reason__c</field>
+            <value>
+                <elementReference>Draft_Reason</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Fax_Enrollment__c</object>
+    </recordUpdates>
+    <screens>
+        <name>Error_Message</name>
+        <label>Error Message</label>
+        <locationX>440</locationX>
+        <locationY>398</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>DisplayError</name>
+            <fieldText>&lt;p&gt;Please check record before clicking on save draft reason button&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Fax_Draft_Reason</name>
+        <label>Fax Draft Reason</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Fax_DraftReason</targetReference>
+        </connector>
+        <fields>
+            <name>Draft_Reason</name>
+            <choiceReferences>DraftReason</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Draft Reason</fieldText>
+            <fieldType>MultiSelectPicklist</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Fax_Draft_Reason</targetReference>
+        </connector>
+    </start>
+    <status>Obsolete</status>
+    <variables>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <elementReference>$Flow.CurrentRecord</elementReference>
+        </value>
+    </variables>
+</Flow>

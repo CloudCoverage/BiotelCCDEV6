@@ -1,0 +1,224 @@
+<aura:component controller="ContactEnrollmentTimelineController" implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName">
+    
+    <aura:attribute name="expandAll" type="Boolean" default="false" />
+    <aura:attribute name="dataLoaded" type="Boolean" default="false" />
+    <aura:attribute name="enrollments" type="Order[]" />
+    <aura:attribute name="enrollmentOptions" type="Object[]" />
+    <aura:attribute name="enrollmentOptionsValue" type="String" />
+    <aura:attribute name="enrollmentSelectedId" type="String" default="null" />
+    <aura:attribute name="enrollmentSelectedName" type="String" />
+    <aura:attribute name="itemIds" type="List" />
+    <aura:attribute name="enrollmentTimeline" type="object[]" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.initialize}" />
+    
+    <div aura:id="uploadCard" class="slds-card__header" style="position:relative">
+        <aura:if isTrue="{!!v.dataLoaded}">
+            <lightning:spinner aura:id="spinner" variant="brand" size="small"/>
+          
+            <div class="slds-m-vertical_Small">
+                &nbsp;
+            </div>
+            
+        </aura:if>
+        
+        <aura:if isTrue="{!and(v.dataLoaded, v.enrollments.length == 0)}">
+            
+            <div class="slds-box slds-theme_warning slds-theme_alert-texture">
+                <p>
+                    <lightning:icon iconName="utility:warning" alternativeText="warning" variant="warning" size="small"/>
+                    <span class="slds-p-left_small slds-p-top_small">This contact does not have any enrollments.</span>
+                </p>
+            </div>
+            
+        </aura:if>
+        
+        <aura:if isTrue="{!and(v.dataLoaded, v.enrollments.length > 0)}">
+            
+            <aura:if isTrue="{!or(v.enrollmentSelectedId == 'null', v.enrollments.length > 1)}">
+                
+                <lightning:layout>
+                    <lightning:layoutItem size="3">
+                        <lightning:select aura:id="enrollmentsSelect" name="enrollmentsSelect" label="Choose an Enrollment" required="true" class="slds-m-bottom_small" value="{!v.enrollmentOptionsValue}" onchange="{!c.handleEnrollmentChange}">
+                            <aura:iteration items="{!v.enrollmentOptions}" var="en" indexVar="index">
+                                <option text="{!en.orderNumber}" value="{!index}" />
+                            </aura:iteration>
+                        </lightning:select>
+                    </lightning:layoutItem>
+                </lightning:layout>
+                
+            </aura:if>
+            
+            <aura:if isTrue="{!v.enrollmentSelectedId != 'null'}">
+                
+                <lightning:card class="slds-card_boundary">
+                    
+                    <aura:set attribute="title">
+                        <div class="slds-p-around_xxx-small">
+                            <lightning:icon iconName="standard:orders" size="small"/>
+                            <span class="slds-card__header-title slds-card__header-link slds-m-left_x-small">
+                                Enrollment (<a href="{!'/' + v.enrollmentSelectedId}">{!v.enrollmentSelectedName}</a>)
+                                <!-- begin -->
+                                <button class="slds-button slds-button_icon slds-text-link  slds-p-bottom_xxx-small norm" onclick="{!c.toggleAll}">
+                                    &nbsp;&nbsp;-&nbsp;&nbsp;{!v.expandAll ? 'Collapse All' : 'Expand All' }
+                                </button>
+                                <!--
+                                text = "{!v.prescriptionIsInShipment ? 'Shipping Address' : 'Select Address'}"   
+                                -->
+                                <!-- end -->
+                            </span>
+                        </div>
+                    </aura:set>
+                    <div id="-GRANDPARENT" class="slds-timeline__item_expandable">
+                        <ul class="slds-timeline slds-p-vertical_small slds-p-horizontal_medium slds-border_top">
+                            <aura:iteration items="{!v.enrollmentTimeline}" var="timeline">
+                                <li>
+                                    <div id="{!timeline.linkId + '-PARENT'}" class="{!'slds-timeline__item_expandable slds-timeline__item_' + timeline.lineType}">
+                                        <div class="slds-media">
+                                            <div class="slds-media__figure">
+                                                <button id="{!timeline.linkId + '-BUTTON'}" class="slds-button slds-button_icon" aria-controls="task-item-base" aria-expanded="false" onclick="{!c.toggleDetails}">
+                                                    <lightning:icon iconName="utility:switch" size="xx-small" class="slds-button__icon slds-timeline__details-action-icon" />
+                                                </button>
+                                                <div class="{!'slds-icon_container slds-icon-standard-' + timeline.style + ' slds-timeline__icon'}">
+                                                    <lightning:icon iconName="{!timeline.icon}" size="small"/>
+                                                </div>
+                                            </div>
+                                            <div class="slds-media__body">
+                                                <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                                    <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                                                        <h3 class="slds-truncate">
+                                                            <aura:if isTrue="{!timeline.createdById != null}">
+                                                                <a href="{!'/' + timeline.linkId}">
+                                                                    <strong>{!timeline.subject}</strong>
+                                                                </a>
+                                                            <aura:set attribute="else">
+                                                                    <div class="fakelinkTitle">{!timeline.subject}</div>
+                                                            </aura:set>
+                                                        </aura:if>     
+                                                        </h3>
+                                                    </div>
+                                                    <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                                        <p class="slds-timeline__date">
+                                                            <lightning:formattedDateTime value="{!timeline.createdDate}" year="numeric" month="numeric" day="numeric" hour="2-digit" minute="2-digit" timeZoneName="short" hour12="true"/>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <p class="slds-m-horizontal_xx-small">
+                                                    <aura:if isTrue="{!timeline.createdById != null}">
+                                                        <a href="{!'/' + timeline.createdById}">{!timeline.createdByName}</a>&nbsp;{!timeline.action}&nbsp;<a href="{!'/' + timeline.relatedToId}">{!timeline.relatedToName}</a>
+                                                    <aura:set attribute="else">
+                                                        <span class="fakelink">{!timeline.createdByName}</span>&nbsp;{!timeline.action}&nbsp;<span class="fakelink">{!timeline.relatedToName}</span>
+                                                    </aura:set>
+                                                    </aura:if>    
+                                                </p>
+                                                <article class="slds-box slds-timeline__item_details slds-theme_shade slds-m-top_x-small slds-m-horizontal_xx-small" aria-hidden="true">
+                                                    <aura:if isTrue="{!timeline.lineType == 'orders'}">
+                                                        <lightning:layout>
+                                                            <lightning:layoutItem size="6">
+                                                                <span class="slds-text-title slds-p-bottom_x-small">Enrollment Number</span><br />
+                                                                <span class="slds-text-body_medium">{!timeline.orderNumber}</span>
+                                                            </lightning:layoutItem>
+                                                            <lightning:layoutItem size="6">
+                                                                <span class="slds-text-title slds-p-bottom_x-small">Status</span><br />
+                                                                <span class="slds-text-body_medium">{!timeline.orderStatus}</span>
+                                                            </lightning:layoutItem>
+                                                        </lightning:layout>
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!and(timeline.lineType == 'case', timeline.icon != 'custom:custom98')}">
+                                                        <lightning:layout>
+                                                            <lightning:layoutItem class="slds-m-bottom_small" size="12">
+                                                                <span class="slds-text-title slds-p-bottom_x-small">Case Reason</span><br />
+                                                                <span class="slds-text-body_medium">{!timeline.caseReason}</span>
+                                                            </lightning:layoutItem>
+                                                        </lightning:layout>
+                                                        <lightning:layout>
+                                                            <lightning:layoutItem size="6">
+                                                                <span class="slds-text-title slds-p-bottom_x-small">Description</span><br />
+                                                                <span class="slds-text-body_medium">{!timeline.caseDescription}</span>
+                                                            </lightning:layoutItem>
+                                                        </lightning:layout>
+                                                        <lightning:layout>
+                                                            <lightning:layoutItem size="6">
+                                                                <br/>
+                                                                <span class="slds-text-title slds-p-bottom_x-small">Action Taken</span><br />
+                                                                <span class="slds-text-body_medium">{!timeline.caseActionTaken}</span>
+                                                            </lightning:layoutItem>
+                                                        </lightning:layout>                                                    
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!timeline.lineType == 'call'}">
+                                                        <lightning:layout>
+                                                            <lightning:layoutItem class="slds-m-bottom_small" size="12">
+                                                                <span class="slds-text-title slds-p-bottom_x-small">Name</span><br />
+                                                                <span class="slds-text-body_medium">{!timeline.callName}</span>
+                                                            </lightning:layoutItem>
+                                                        </lightning:layout>
+                                                        <lightning:layout>
+                                                            <lightning:layoutItem size="12">
+                                                                <span class="slds-text-title slds-p-bottom_x-small">Description</span><br />
+                                                                <span class="slds-text-body_medium">{!timeline.callDescription}</span>
+                                                            </lightning:layoutItem>
+                                                        </lightning:layout>
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!timeline.lineType == 'email'}">
+                                                        <lightning:layout>
+                                                            <lightning:layoutItem class="slds-m-bottom_small" size="6">
+                                                                <span class="slds-text-title slds-p-bottom_x-small">From Address</span><br />
+                                                                <span class="slds-text-body_medium">{!timeline.emailFromAddress}</span>
+                                                            </lightning:layoutItem>
+                                                            <lightning:layoutItem class="slds-m-bottom_small" size="6">
+                                                                <span class="slds-text-title slds-p-bottom_x-small">To Address</span><br />
+                                                                <span class="slds-text-body_medium">{!timeline.emailToAddress}</span>
+                                                            </lightning:layoutItem>
+                                                        </lightning:layout>
+                                                        <lightning:layout>
+                                                            <lightning:layoutItem size="12">
+                                                                <span class="slds-text-title slds-p-bottom_x-small">Text Body</span><br />
+                                                                <span class="slds-text-body_medium">{!timeline.emailTextBody}</span>
+                                                            </lightning:layoutItem>
+                                                        </lightning:layout>
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!timeline.lineType == 'task'}">
+                                                        <lightning:layout>
+                                                            <lightning:layoutItem class="slds-m-bottom_small" size="12">
+                                                                <span class="slds-text-title slds-p-bottom_x-small">Source System</span><br />
+                                                                <span class="slds-text-body_medium">{!timeline.taskSourceSystem}</span>
+                                                            </lightning:layoutItem>
+                                                        </lightning:layout>
+                                                        <lightning:layout>
+                                                            <lightning:layoutItem size="12">
+                                                                <span class="slds-text-title slds-p-bottom_x-small">Activity Notes</span><br />
+                                                                <span class="slds-text-body_medium">{!timeline.taskNotes}</span>
+                                                            </lightning:layoutItem>
+                                                        </lightning:layout>
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!and(timeline.lineType == 'case', timeline.icon == 'custom:custom98')}">
+                                                        <lightning:layout>
+                                                            <lightning:layoutItem size="6">
+                                                                <span class="slds-text-title slds-p-bottom_x-small">Shipment Type</span><br />
+                                                                <span class="slds-text-body_medium">{!timeline.shipmentType}</span>
+                                                            </lightning:layoutItem>
+                                                            <lightning:layoutItem size="6">
+                                                                <span class="slds-text-title slds-p-bottom_x-small">Status</span><br />
+                                                                <span class="slds-text-body_medium">{!timeline.shipmentStatus}</span>
+                                                            </lightning:layoutItem>
+                                                        </lightning:layout>
+                                                    </aura:if>
+                                                </article>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </aura:iteration>
+                        </ul>
+                    </div>
+                    
+                </lightning:card>
+                
+            </aura:if>
+            
+            
+            
+        </aura:if>
+    </div>    
+</aura:component>

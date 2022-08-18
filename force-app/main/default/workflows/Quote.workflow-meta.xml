@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Quote_Approval_Request_Approved_AE</fullName>
+        <ccEmails>gobio+helpdesk@service-now.com, cody.cowper@gobio.com</ccEmails>
+        <description>Quote Approval Request - Approved - AE</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <recipient>kenneth.mabine@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>tina.fairing@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Quote_Approval_Request_Approved_AE</template>
+    </alerts>
+    <alerts>
+        <fullName>Quote_Approval_Request_Approved_RSD</fullName>
+        <description>Quote Approval Request - Approved - RSD</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Approval_Requestor_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Quote_Approval_Request_Approved_RSD</template>
+    </alerts>
+    <alerts>
+        <fullName>Quote_Approval_Request_Rejected_AE</fullName>
+        <description>Quote Approval Request - Rejected - AE</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Quote_Approval_Request_Rejected_AE</template>
+    </alerts>
+    <alerts>
+        <fullName>Quote_Approval_Request_Rejected_RSD</fullName>
+        <description>Quote Approval Request - Rejected - RSD</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Approval_Requestor_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Quote_Approval_Request_Rejected_RSD</template>
+    </alerts>
+    <alerts>
+        <fullName>Quote_Approved</fullName>
+        <description>Quote Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <recipients>
+            <recipient>jason@cardionet.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Quote_Approval_Request_Approved_AE</template>
+    </alerts>
+    <alerts>
+        <fullName>Quote_Submission_Confirmation</fullName>
+        <description>Quote Submission Confirmation</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Quote_Submission_Confirmation</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Prelim_Approval</fullName>
+        <field>Status</field>
+        <literalValue>Preliminary Approval</literalValue>
+        <name>Prelim Approval</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Quote_Approved</fullName>
+        <field>Status</field>
+        <literalValue>Approved</literalValue>
+        <name>Quote Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Quote_In_Review</fullName>
+        <field>Status</field>
+        <literalValue>In Review</literalValue>
+        <name>Quote In Review</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Quote_Needs_Review</fullName>
+        <field>Status</field>
+        <literalValue>Needs Review</literalValue>
+        <name>Quote Needs Review</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Quote_Rejected</fullName>
+        <field>Status</field>
+        <literalValue>Rejected</literalValue>
+        <name>Quote Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+</Workflow>

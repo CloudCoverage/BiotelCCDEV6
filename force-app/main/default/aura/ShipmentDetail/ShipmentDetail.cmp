@@ -1,0 +1,115 @@
+<aura:component  controller="ShipmentController" implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:appHostable,force:LightningQuickActionWithoutHeader,lightning:isUrlAddressable" access="global">
+
+    <aura:attribute name="sh" type="sObject" default=""/>
+    <aura:attribute name="shList" type="sObject[]" default="[]"/>
+
+    <aura:handler name="init" action="{!c.init}" value="{!this}" />
+    <!--
+    <lightning:card> 
+    
+        <div class="slds-page-header slds-page-header_record-home">
+            <div class="slds-page-header__row">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-size_1-of-1 slds-page-header__title">      
+                        <lightning:icon iconName="custom:custom98" size="small"/>
+                        Shipment
+                    </div>
+                </div>
+            </div>
+        </div>
+    </lightning:card>
+-->
+    <lightning:card>
+        <div class="slds-scope">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-size_1-of-2 slds-p-around_xx-small">
+                    <div>Enrollment</div>
+                    <div class="slds-border_bottom" title="Hyperlink">
+                    <a href="javascript:void(0);"  onclick="{!c.goToOrder}">{!v.sh.EnrollmentNumber}</a>
+                    </div>
+                </div>
+                <div class="slds-size_1-of-2 slds-p-around_xx-small">
+                    <div class="slds-text-title slds-truncate">Kit Name</div>
+                    <div class="slds-border_bottom">
+                        <lightning:formattedText value="{!v.sh.KitName}"/>
+                    </div>
+                </div>    
+        
+                <div class="slds-size_1-of-2 slds-p-around_xx-small">
+                    <div class="slds-text-title slds-truncate">Center Name</div>
+                    <div class="slds-border_bottom">
+                        <lightning:formattedText value="{!v.sh.CenterName}"/>
+                    </div>
+                </div>
+                <div class="slds-size_1-of-2 slds-p-around_xx-small">
+                    <div class="slds-text-title slds-truncate">Bundle Number</div>
+                    <div class="slds-border_bottom">
+                        <lightning:formattedText value="{!v.sh.BundleNumber}"/>
+                    </div>
+                </div>    
+            
+                <div class="slds-size_1-of-2 slds-p-around_xx-small">
+                    <div class="slds-text-title slds-truncate">Deliver by Date</div>
+                    <div class="slds-border_bottom">
+                        {!v.sh.DeliverByDateString} 
+                        <!--<lightning:formattedDateTime value="{!v.sh.DeliverByDate}" year="numeric" month="numeric" day="numeric" /> -->
+                    </div>
+                </div>
+                <div class="slds-size_1-of-2 slds-p-around_xx-small">
+                    <div class="slds-text-title slds-truncate">Status</div>
+                    <div class="slds-border_bottom">
+                        <lightning:formattedText value="{!v.sh.Status}"/>
+                    </div>
+                </div>    
+            </div>    
+            <div class="slds-size_1-of-2 slds-p-around_xx-small">
+                <div class="slds-text-title slds-truncate">Fulfilled Date</div>
+                <div class="slds-border_bottom">
+                   {!v.sh.FulfilledDateString}
+                     <!--<lightning:formattedDateTime value="{!v.sh.FulfilledDateTime}" year="numeric" month="numeric" day="numeric" />-->
+                </div>
+            </div>
+            <div class="slds-size_1-of-2 slds-p-around_xx-small">
+            </div>  
+            
+            <div class="slds-size_1-of-2 slds-p-around_xx-small">
+                <div class="slds-text-title slds-truncate">Shipment Type</div>
+                <div class="slds-border_bottom">
+                    <lightning:formattedText value="{!v.sh.Type}"/>
+                </div>
+            </div>
+            <div class="slds-size_1-of-2 slds-p-around_xx-small">
+            </div> 
+            
+            <div class="slds-size_1-of-2 slds-p-around_xx-small">
+                <div class="slds-text-title slds-truncate">Shipment Created Date Time</div>
+                <div class="slds-border_bottom">
+                    <lightning:formattedDateTime value="{!v.sh.CreatedDate}" 
+              	year="numeric" month="numeric" day="numeric" hour="2-digit" minute="2-digit" hour12="true"/>
+                </div>
+            </div>
+            <div class="slds-size_1-of-2 slds-p-around_xx-small">
+            </div> 
+            
+            <div class="slds-size_1-of-2 slds-p-around_xx-small">
+                <div class="slds-text-title slds-truncate">Shipment Created User</div>
+                <div class="slds-border_bottom">
+                    <lightning:formattedText value="{!v.sh.CreatedUser}"/>
+                </div>
+            </div>
+            <div class="slds-size_1-of-2 slds-p-around_xx-small">
+            </div> 
+            <div class="slds-size_1-of-2 slds-p-around_xx-small">
+                <div class="slds-text-title slds-truncate">Shipment Backend ID</div>
+                <div class="slds-border_bottom">
+                    <lightning:formattedText value="{!v.sh.BackendId}"/>
+                </div>
+            </div>
+            <div class="slds-size_1-of-2 slds-p-around_xx-small">
+            </div>
+        
+        </div>    
+              
+    </lightning:card>
+
+</aura:component>

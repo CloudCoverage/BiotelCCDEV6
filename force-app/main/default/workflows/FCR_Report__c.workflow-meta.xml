@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>FCR_Notification</fullName>
+        <description>FCR Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/FCR_Notification</template>
+    </alerts>
+    <alerts>
+        <fullName>FCR_Notification_AEAcknowledgedCentralEast</fullName>
+        <ccEmails>tina.fairing@gobio.com</ccEmails>
+        <description>FCR Notification to RSD when AE acknowledges - Central/East</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Manager_Email_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <recipient>Field_Ops_Central_East</recipient>
+            <type>group</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <recipient>AVP_Central_East</recipient>
+            <type>role</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/FCR_Notification_AE_Acknowledged</template>
+    </alerts>
+    <alerts>
+        <fullName>FCR_Notification_AEAcknowledgedSouthWest</fullName>
+        <ccEmails>tina.fairing@gobio.com</ccEmails>
+        <description>FCR Notification to RSD when AE acknowledges - South/West</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Manager_Email_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <recipient>Field_Ops_South_West</recipient>
+            <type>group</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <recipient>AVP_South_West</recipient>
+            <type>role</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/FCR_Notification_AE_Acknowledged</template>
+    </alerts>
+    <alerts>
+        <fullName>FCR_Notification_RSD</fullName>
+        <description>FCR Notification to RSD when AE initiates record and assigns it to the RSD</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Manager_Email_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/FCR_Notification_AE_Initiation</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Assigned_to_AE</fullName>
+        <description>Assigned to AE for review</description>
+        <field>Status__c</field>
+        <literalValue>Assigned to AE</literalValue>
+        <name>Assigned to AE</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>FCR Notification</fullName>
+        <actions>
+            <name>FCR_Notification</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>Assigned_to_AE</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>When record owner and AE match, send email to AE notifying them to review the FCR report.</description>
+        <formula>and( LastModifiedById &lt;&gt;  OwnerId ,Account_Executive2__r.Id = OwnerId)</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

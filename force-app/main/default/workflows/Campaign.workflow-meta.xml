@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Campaign_Checklist_Notification</fullName>
+        <ccEmails>tina.fairing@cardionet.com</ccEmails>
+        <description>Campaign Checklist Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <recipient>caroline.mcginnis@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>geof.capodanno@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>maria.mastrocola@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Campaign_Checklist_Notification</template>
+    </alerts>
+    <alerts>
+        <fullName>Campaign_No_Leads_Assigned</fullName>
+        <ccEmails>tina.fairing@cardionet.com</ccEmails>
+        <description>Campaign No Leads Entered - 5 Day Notice</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <recipient>geof.capodanno@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>maria.mastrocola@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Campaign_No_Leads_Assigned</template>
+    </alerts>
+    <alerts>
+        <fullName>Campaign_Request_Approval_Notice_Approved</fullName>
+        <ccEmails>Tina.fairing@gobio.com</ccEmails>
+        <description>Campaign Request Approval - Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <recipient>annmarie.scheuer@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>caroline.mcginnis@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>geof.capodanno@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>maria.mastrocola@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Campaign_Request_Approval_Notice_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Campaign_Request_Approval_Notice_Denied</fullName>
+        <description>Campaign Request Approval Notice - Denied</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Campaign_Request_Approval_Notice_Denied</template>
+    </alerts>
+    <alerts>
+        <fullName>Campaign_Submission_Confirmation</fullName>
+        <description>Campaign Submission Confirmation</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Campaign_Submission_Confirmation</template>
+    </alerts>
+    <alerts>
+        <fullName>Grant_Request_Approval_Notice_Approved</fullName>
+        <description>Grant Request Approval - Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <recipient>maria.mastrocola@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>nicole.bigham@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Grant_Request_Approval_Notice_Approved</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Approved_by_Area_VP</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approved by Area VP</literalValue>
+        <name>Approved by Area VP</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Approved_by_Compliance</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approved by Compliance</literalValue>
+        <name>Approved by Compliance</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Approved_by_President</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approved by President</literalValue>
+        <name>Approved by President</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Approved_by_RSD</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approved by RSD</literalValue>
+        <name>Approved by RSD</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Denied_by_Area_VP</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Denied by Area VP</literalValue>
+        <name>Denied by Area VP</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Denied_by_Compliance</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Denied by Compliance</literalValue>
+        <name>Denied by Compliance</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Denied_by_President</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Denied by President</literalValue>
+        <name>Denied by President</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Denied_by_RSD</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Denied by RSD</literalValue>
+        <name>Denied by RSD</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Submitted</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Submitted for Approval</literalValue>
+        <name>Submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Campaign No Leads 5 Days After</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Campaign.Type</field>
+            <operation>equals</operation>
+            <value>Trade Shows,Virtual Tradeshows</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Campaign.EndDate</field>
+            <operation>greaterOrEqual</operation>
+            <value>1/1/2020</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Campaign.of_Leads__c</field>
+            <operation>lessOrEqual</operation>
+            <value>0</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Campaign_No_Leads_Assigned</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Campaign.EndDate</offsetFromField>
+            <timeLength>5</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+</Workflow>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Speaker_Approval_Nearing_Expiration</fullName>
+        <description>Speaker Approval Nearing Expiration</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <recipients>
+            <recipient>jason@cardionet.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Speaker_Approval_Nearing_Expiration</template>
+    </alerts>
+    <alerts>
+        <fullName>Speaker_Approval_Request</fullName>
+        <ccEmails>liz.watts@cardionet.com, tina.fairing@cardionet.com</ccEmails>
+        <description>Speaker Approval Request</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Speaker_Approval_Request</template>
+    </alerts>
+    <alerts>
+        <fullName>Speaker_Approval_Request_Approved</fullName>
+        <ccEmails>liz.watts@cardionet.com, tina.fairing@cardionet.com</ccEmails>
+        <description>Speaker Approval Request Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Speaker_Approval_Request_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Speaker_Approval_Request_Rejected</fullName>
+        <ccEmails>liz.watts@cardionet.com, tina.fairing@cardionet.com</ccEmails>
+        <description>Speaker Approval Request Rejected</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Speaker_Approval_Request_Denied</template>
+    </alerts>
+    <alerts>
+        <fullName>Speaker_Approval_Submission_Confirmation</fullName>
+        <ccEmails>liz.watts@cardionet.com, tina.fairing@cardionet.com</ccEmails>
+        <description>Speaker Approval Submission Confirmation</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Speaker_Approval_Submission_Confirmation</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Default_to_New</fullName>
+        <field>Status__c</field>
+        <literalValue>New</literalValue>
+        <name>Default to New</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Mark_Approved</fullName>
+        <field>Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Mark Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Mark_Contact_as_Approved</fullName>
+        <field>Speaker_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Mark Contact as Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Speaker__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Reject_Approval</fullName>
+        <field>Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Reject Approval</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_to_Approved</fullName>
+        <field>Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Set to Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_to_RSD_Approved</fullName>
+        <field>Status__c</field>
+        <literalValue>Approved by RSD</literalValue>
+        <name>Set to RSD Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_to_Rejected</fullName>
+        <field>Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Set to Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_to_Submitted</fullName>
+        <field>Status__c</field>
+        <literalValue>Submitted</literalValue>
+        <name>Set to Submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Approval_Date</fullName>
+        <description>Sets the Approval Date to today</description>
+        <field>Approval_Date__c</field>
+        <formula>Today()</formula>
+        <name>Update Approval Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Approved Request - Speaker</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Speaker_Approval_Request__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Speaker_Approval_Nearing_Expiration</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Speaker_Approval_Request__c.Approval_Expiration_Date__c</offsetFromField>
+            <timeLength>-45</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Default to Submitted</fullName>
+        <actions>
+            <name>Default_to_New</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Speaker_Approval_Request__c.CreatedById</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <tasks>
+        <fullName>Schedule_Trainer_Send_Training_Deck</fullName>
+        <assignedTo>maria.mastrocola@gobio.com</assignedTo>
+        <assignedToType>user</assignedToType>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>true</notifyAssignee>
+        <offsetFromField>Speaker_Approval_Request__c.Approval_Date__c</offsetFromField>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Schedule Trainer/Send Training Deck</subject>
+    </tasks>
+</Workflow>

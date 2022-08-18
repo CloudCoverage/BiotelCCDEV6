@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Account_Reactivation_Alert</fullName>
+        <description>Account Reactivation Alert (TEST)</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>tina.fairing@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Account_Reactivated</template>
+    </alerts>
+    <alerts>
+        <fullName>BMS_Holter_Conversion_Complete</fullName>
+        <description>BMS Holter Conversion Complete</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>liz.watts@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>tina.fairing@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Holter_Conversion_Complete</template>
+    </alerts>
+    <alerts>
+        <fullName>LW_New_Account_Number_Request</fullName>
+        <description>LW New Account Number Request</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email_Notification_1__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Email_Notification_2__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <recipient>carrie.fields-haq@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>monique.leblanc@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>tina.fairing@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <field>LastModifiedById</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>LifeWatch_Automated_Templates/LW_New_Account_Number_Request</template>
+    </alerts>
+    <rules>
+        <fullName>LW Account - New Account Number Request</fullName>
+        <actions>
+            <name>LW_New_Account_Number_Request</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Account.Request_New_Account_Number__c</field>
+            <operation>equals</operation>
+            <value>Request New Account Number</value>
+        </criteriaItems>
+        <description>Replaced with Account Process Builder</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>No Activity in Greater than 60 days</fullName>
+        <active>false</active>
+        <criteriaItems>
+            <field>Account.Last_Activity_Date_del__c</field>
+            <operation>greaterThan</operation>
+            <value>LAST 60 DAYS</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.OwnerId</field>
+            <operation>equals</operation>
+            <value>trey nichols</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <offsetFromField>Account.Last_Activity_Date_del__c</offsetFromField>
+            <timeLength>60</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+</Workflow>

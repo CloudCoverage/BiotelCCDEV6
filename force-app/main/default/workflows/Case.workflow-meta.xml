@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Case_New_Portal_Issue_Alert</fullName>
+        <ccEmails>DL-PortalMigration@gobio.com</ccEmails>
+        <description>Case New Portal Issue Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email_Notification_1__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Email_Notification_2__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <recipient>daniel.kim@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Case_New_Portal_Issue</template>
+    </alerts>
+    <alerts>
+        <fullName>LW_Case_Initial_Investigation_Request</fullName>
+        <description>LW Case Initial Investigation Request</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email_Notification_1__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Email_Notification_2__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>LifeWatch_Automated_Templates/LW_Case_Initial_Investigation_Request</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_AE_when_case_with_flagged_reason_is_closed</fullName>
+        <description>Notify AE when case with flagged reason is closed.</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Case_Closed_AE_notification</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Auto_Assign_Escalated_Case_to_Queue</fullName>
+        <description>Auto assigns the case when the status is changed to Escalated to the Client Services Escalation Queue.</description>
+        <field>OwnerId</field>
+        <lookupValue>Client_Services_Escalations</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>Auto Assign Escalated Case to Queue</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Escalated_Case</fullName>
+        <description>Update Escalated checkbox to True if status = Escalated.</description>
+        <field>IsEscalated</field>
+        <literalValue>1</literalValue>
+        <name>Escalated Case</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Escalated_Cases</fullName>
+        <description>Update checkbox to be checked when case status = escalated.</description>
+        <field>Escalated_Custom__c</field>
+        <literalValue>1</literalValue>
+        <name>Escalated Cases</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Case_Subject</fullName>
+        <description>Set the Case Subject to the account name and case reason</description>
+        <field>Subject</field>
+        <formula>IF(ISBLANK(Account.Name),
+IF(ISBLANK(Requester__c), Request_AE__r.FirstName + &apos; &apos; + Request_AE__r.LastName,  Requester__r.FirstName + &apos; &apos; + Requester__r.LastName), Account.Name) + &apos; - &apos; + TEXT( Reason )</formula>
+        <name>Set Case Subject</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Case_Status</fullName>
+        <description>Update the Status field of the case record to In Progress</description>
+        <field>Status</field>
+        <literalValue>In Progress</literalValue>
+        <name>Update Case Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_Timestamp</fullName>
+        <description>Set the status timestamp value to now()</description>
+        <field>Status_Timestamp__c</field>
+        <formula>now()</formula>
+        <name>Update Status Timestamp</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Closed Case</fullName>
+        <active>false</active>
+        <criteriaItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>Closed,Closed - Unresolved,Closed - Resolved,Closed - Transferred,Closed - Returned,Closed - Send to Collections,Closed - Reinstated,Closed - Not Returned</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Escalated Case</fullName>
+        <actions>
+            <name>Auto_Assign_Escalated_Case_to_Queue</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Escalated_Cases</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>Escalated</value>
+        </criteriaItems>
+        <description>Update Escalated field if Case Status = Escalated</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>LW Case - Initial Investigation Request</fullName>
+        <actions>
+            <name>LW_Case_Initial_Investigation_Request</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Case.Subject_Filter__c</field>
+            <operation>equals</operation>
+            <value>Billing,CCC Technical Support,Clinical Thecnician (s),PCC Baseline,CSR Forgot to Place Order,Long Hold Time,Multiple Issues,Multiple Phone Transfers,Rude CSR,Unable to Understand CSR,Failure of Service,HIPPA Issue</value>
+        </criteriaItems>
+        <description>Used for Billing, Customer Service, Clinical, Failure of Service and HIPAA</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>SOR Subject is Account</fullName>
+        <actions>
+            <name>Set_Case_Subject</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>SF Admin Support</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Subject</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <description>For new Sales Ops support requests, automatically create the case subject.</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Set Status Timestamp</fullName>
+        <actions>
+            <name>Update_Status_Timestamp</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Updates the field Status Timestamp with the current date-time when the status value is changed on a case.</description>
+        <formula>AND(ISCHANGED(Status), PRIORVALUE(Status) &lt;&gt; TEXT(Status))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

@@ -1,0 +1,64 @@
+<aura:component   controller="ActivityHistoryController" implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:appHostable,force:LightningQuickActionWithoutHeader,lightning:isUrlAddressable"  access="global"> 
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <aura:attribute name="activityId" type="String" />
+
+    <aura:attribute name="act" type="sObject" />
+    <div class="slds-page-header slds-page-header_record-home">
+      <div class="slds-page-header__row">
+        <div class="slds-grid slds-wrap">
+          <div class="slds-size_1-of-1 slds__title">
+            <lightning:icon iconName="standard:task" size="small"/>
+              &nbsp;<Strong>WorkOrder Activity</Strong>
+            </div>
+        </div>
+      </div>
+    </div>
+    <lightning:card> 
+    <div class="slds-scope">
+      <div class="slds-grid slds-wrap">
+        <div class="slds-size_1-of-2 slds-p-around_xx-small">
+            <div>Subject</div>
+            <div class="slds-border_bottom">
+              <lightning:formattedText value="{!v.act.Subject}"/>
+            </div>
+        </div>
+        <div class="slds-size_1-of-2 slds-p-around_xx-small">
+            <div class="slds-text-title slds-truncate">Status</div>
+            <div class="slds-border_bottom">
+                <lightning:formattedText value="Completed"/>
+            </div>
+        </div>    
+
+      <div class="slds-size_1-of-2 slds-p-around_xx-small">
+          <div class="slds-text-title slds-truncate">Activity Notes</div>
+          <div class="slds-border_bottom">
+            <lightning:formattedText value="{!v.act.Description}"/>
+          </div>
+      </div>
+      <div class="slds-size_1-of-2 slds-p-around_xx-small">
+          <div class="slds-text-title slds-truncate">Source Created Date/Time</div>
+          <div class="slds-border_bottom">
+              <lightning:formattedDateTime value="{!v.act.SourceCreatedTime}" 
+              	year="numeric" month="numeric" day="numeric" hour="2-digit" minute="2-digit" timeZoneName="short" hour12="true"/>
+          </div>
+      </div>    
+
+    <div class="slds-size_1-of-2 slds-p-around_xx-small">
+        <div class="slds-text-title slds-truncate">Related To</div>
+        <div class="slds-border_bottom">
+            <a href="{/!v.act.enrollmentId}"></a>
+            <a href="javascript:void(0);" onclick="{!c.goToOrder}">{!v.act.enrollmentName}</a>
+        </div>
+    </div>
+    <div class="slds-size_1-of-2 slds-p-around_xx-small">
+        <div class="slds-text-title slds-truncate">Source Created By</div>
+        <div class="slds-border_bottom">
+            <lightning:formattedText value="{!v.act.SourceCreatedBy}"/>
+        </div>
+    </div>    
+  </div>    
+
+    </div>    
+  </lightning:card>
+    
+</aura:component>

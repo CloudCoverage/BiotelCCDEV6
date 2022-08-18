@@ -1,0 +1,19 @@
+.THIS .slds-leftpad{
+	padding-left: 4rem;
+}
+.THIS .iconheight{
+    top: 63%;
+}
+
+.THIS .leftspace input {
+    padding-left:2rem;
+}
+
+.THIS .slds-icon {
+    left: 55px !important;
+}
+
+.THIS .req .slds-input {
+    padding-left:2rem;
+    background: rgb(250, 221, 226);
+}

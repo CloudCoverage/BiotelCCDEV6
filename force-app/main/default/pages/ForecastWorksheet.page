@@ -1,0 +1,418 @@
+<apex:page showHeader="false" sidebar="false" title="Forecast Worksheet" controller="ForecastWorksheetController" docType="html-5.0">
+<apex:slds />
+<style>
+	.pageDescription, .pageType {
+    color: white !important;
+	}
+	div.bPageTitle {
+    background-color: #1A4982 !important;		
+	}
+	.datatablediv {
+		display:block; 
+		max-width: 80vw;
+		overflow: scroll;
+	}
+	.datatable {
+		border-color: #999999!important;
+		margin: 1px;
+		overflow: scroll;
+		width: 100%;
+
+	}
+	.datatable tr {
+		position:relative;
+		height: 39px;
+	}
+	.datatable tr:nth-child(even) {
+	  	background-color: #CCCCCC;
+		border-color: #999999!important;
+	}
+	.datatable th {
+		background-color: #99D2F2;
+		border-color: #999999!important;
+		text-align: center;
+	}
+	.datatable td {
+		border-color: #999999!important;
+		text-align: center;	
+	}
+	.filterstable table {
+		padding: 10px;
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 20px !important;
+		border-color: #0000000;
+	}
+	.filterstable tr {
+		border: none;
+		padding: 10px;
+	}
+	.filterstable td {
+		width: 25%;
+		border: none;
+		padding: 10px;
+	}
+	.filterstable th {
+		border: none;
+		padding: 10px;
+	}
+	.rich-tab-active {
+		background-image: none;
+		background-color: #1A4982;
+		border-style: none;
+		border-width: 0px;
+	}
+	.rich-tab-inactive {
+		background-image: none;
+		background-color: rgba(26, 73, 130, 0.6);
+		border-style: none;
+		border-style: none;
+		border-width: 0px;
+	}
+	.rich-tab-header {
+		color: #fff;
+		text-align: center!important;
+	}
+	.slds-scope .slds-table--cell-buffer tr>td:first-child, .slds-scope .slds-table--cell-buffer tr>th:first-child, .slds-scope .slds-table_cell-buffer tr>td:first-child, .slds-scope .slds-table_cell-buffer tr>th:first-child {
+		padding-left: 0.5rem;
+	}
+	.slds-scope .slds-table td, .slds-scope .slds-table th {
+		padding: .25rem;
+	}
+	.slds-scope .slds-text-title--caps {
+		letter-spacing: normal;
+	}
+	.slds-scope .slds-table th {
+		white-space: normal;
+	}
+</style>
+<body class="slds-scope">
+	<apex:messages rendered="{!noAccess}" id="topmessages"/>
+	<apex:form id="all" rendered="{!!noAccess}" style="display: block; width: 100vw !important; height: 100vh !important;">
+		
+		<!-- Schedule Batch for Admin only >
+		<apex:commandButton style="position: absolute; top: 10px; right: 10px;" rendered="{!IF($Profile.Name == 'System Administrator', TRUE, FALSE)}" action="{!scheduleBatch}" value="Schedule Product Forecast Batch" /-->
+
+	  <apex:sectionHeader title="{!$User.FirstName} {!$User.LastName} Forecast Worksheet" />
+	  <apex:messages id="messages"/>
+
+	  	<table style="display: block; width: 100vw !important;">
+		  	<!-- Filters start -->
+		  	<tr>
+		  		<td style="padding:10px;">
+		  			<u><apex:outputLink value="{!reportURL}" target="_blank">{!reportName}</apex:outputLink></u><br />
+		  			<apex:tabPanel styleClass="slds-tabs--scoped" height="133px">
+			  			<apex:tab label="Pipeline" style="height: 113px;">
+			  			Includes units from opportunities for entirely new customers, or new products for existing customers. Only includes opportunities with a close date in this quarter. Calculation does not include opportunities with less than 70% probability. Calculated every night. Cannot be edited.</apex:tab>
+			  			<apex:tab label="Trended Volume" style="height: 113px;">
+			  			Includes units from existing products on currently active accounts. Calculated on the 4th business day of every quarter, based on previous Daily Sales Records. Cannot be edited.</apex:tab>
+			  			<apex:tab label="Adjusted Projection" style="height: 113px;">
+			  			Any changes to the calculated “Forecast” number for the quarter based on your knowledge of the Account.</apex:tab>
+		  			</apex:tabPanel>
+	  			</td>
+	  			<td  class="filterstable" style="padding:10px; width: 80%"><apex:outputPanel id="filters" >
+	  				<table><tr>
+			  			<td style="width: 15%;">
+					  		Filter Records:<br /><br />
+					  		<!-- Account filter start -- MAX 10,000 Accounts-->
+					  		<apex:selectList value="{!selectedAccount}" multiselect="false" size="1" style="min-width: 100%; max-width: 350px;">
+				  				<apex:selectOptions value="{!allAccountOptions[0]}" rendered="{!!ISNULL(allAccountOptions[0])}" />
+				  				<apex:selectOptions value="{!allAccountOptions[1]}" rendered="{!!ISNULL(allAccountOptions[1])}" />
+				  				<apex:selectOptions value="{!allAccountOptions[2]}" rendered="{!!ISNULL(allAccountOptions[2])}" />
+				  				<apex:selectOptions value="{!allAccountOptions[3]}" rendered="{!!ISNULL(allAccountOptions[3])}" />
+				  				<apex:selectOptions value="{!allAccountOptions[4]}" rendered="{!!ISNULL(allAccountOptions[4])}" />
+				  				<apex:selectOptions value="{!allAccountOptions[5]}" rendered="{!!ISNULL(allAccountOptions[5])}" />
+				  				<apex:selectOptions value="{!allAccountOptions[6]}" rendered="{!!ISNULL(allAccountOptions[6])}" />
+				  				<apex:selectOptions value="{!allAccountOptions[7]}" rendered="{!!ISNULL(allAccountOptions[7])}" />
+				  				<apex:selectOptions value="{!allAccountOptions[8]}" rendered="{!!ISNULL(allAccountOptions[8])}" />
+				  				<apex:selectOptions value="{!allAccountOptions[9]}" rendered="{!!ISNULL(allAccountOptions[9])}" />
+				  				<apex:selectOptions value="{!allAccountOptions[10]}" rendered="{!!ISNULL(allAccountOptions[10])}" />
+				  				<apex:selectOptions value="{!allAccountOptions[11]}" rendered="{!!ISNULL(allAccountOptions[11])}" />
+				  				<apex:selectOptions value="{!allAccountOptions[12]}" rendered="{!!ISNULL(allAccountOptions[12])}" />
+				  				<apex:selectOptions value="{!allAccountOptions[13]}" rendered="{!!ISNULL(allAccountOptions[13])}" />
+				  				<apex:selectOptions value="{!allAccountOptions[14]}" rendered="{!!ISNULL(allAccountOptions[14])}" />
+				  				<apex:selectOptions value="{!allAccountOptions[15]}" rendered="{!!ISNULL(allAccountOptions[15])}" />
+				  				<apex:selectOptions value="{!allAccountOptions[16]}" rendered="{!!ISNULL(allAccountOptions[16])}" />
+				  				<apex:selectOptions value="{!allAccountOptions[17]}" rendered="{!!ISNULL(allAccountOptions[17])}" />
+				  				<apex:selectOptions value="{!allAccountOptions[18]}" rendered="{!!ISNULL(allAccountOptions[18])}" />
+				  				<apex:selectOptions value="{!allAccountOptions[19]}" rendered="{!!ISNULL(allAccountOptions[19])}" />
+					  		</apex:selectList>
+				  		<!-- Account filter end -->
+				  		</td>
+
+			  			<!-- Account Executive filter start -->
+							<td style="text-align:center;"><p>Account Executives:</p>
+								<div style="height:100%; display: inline-block; min-width: 125px;">
+						  		<apex:selectList id="availableAE" value="{!addAE}" multiselect="true" size="5" style="min-width: 115px;">
+						  			<apex:selectOptions value="{!availableAEs}">
+								  	</apex:selectOptions>
+						  		</apex:selectList>
+								</div>
+								<div style="height: 93px; width: 20px; display: inline-block; position: absolute;">
+									<div style="display:block; height: 50%; width: 20px; position: initial;">
+										<apex:commandLink title="Add AE" action="{!addSelectedAE}" reRender="selectedAE,availableAE">
+										  <apex:image value="/img/arrow2_picklist_right.gif" style="position: absolute; left: 0; top: 15px; width: 20px;"/>
+										</apex:commandLink>
+									</div>
+									<div style="display:block; height: 50%; width: 20px; position: initial;">
+										<apex:commandLink title="Remove AE" action="{!removeSelectedAE}" reRender="selectedAE,availableAE">
+										  <apex:image value="/img/arrow2_picklist_left.gif"  style="position: absolute; left: 0; bottom: 15px; width: 20px;"/>
+										</apex:commandLink>
+									</div>
+								</div>
+								<div style="height:100%; display: inline-block;  position: relative;margin-left:25px;">
+						  		<apex:selectList id="selectedAE" value="{!removeAE}" multiselect="true" size="5" style="min-width: 115px; ">
+						  			<apex:selectOptions value="{!selectedAEs}">
+								  	</apex:selectOptions>
+						  		</apex:selectList>
+					  		</div>
+				  		</td>
+			  			<!-- Account Executive filter end -->
+				  		
+				  		<!-- Product filter start -->
+								<td style="text-align:center;"><p>Products:</p>
+									<div style="height:100%; display: inline-block; min-width: 125px;">
+						  		<apex:selectList id="availableProd" value="{!addProduct}" multiselect="true" size="5" style="min-width: 115px;">
+						  			<apex:selectOptions value="{!availableProducts}">
+								  	</apex:selectOptions>
+						  		</apex:selectList>
+								</div>
+								<div style="height: 93px; width: 20px; display: inline-block; position: absolute;">
+									<div style="display:block; height: 50%; width: 20px; position: initial;">
+										<apex:commandLink title="Add Product" action="{!addSelectedProduct}" reRender="selectedProd,availableProd">
+										  <apex:image value="/img/arrow2_picklist_right.gif" style="position: absolute; left: 0; top: 15px; width: 20px;"/>
+										</apex:commandLink>
+									</div>
+									<div style="display:block; height: 50%; width: 20px; position: initial;">
+										<apex:commandLink title="Remove Product" action="{!removeSelectedProduct}" reRender="selectedProd,availableProd">
+										  <apex:image value="/img/arrow2_picklist_left.gif"  style="position: absolute; left: 0; bottom: 15px; width: 20px;"/>
+										</apex:commandLink>
+									</div>
+								</div>
+								<div style="height:100%; display: inline-block;  position: relative;margin-left:25px;">
+						  		<apex:selectList id="selectedProd" value="{!removeProduct}" multiselect="true" size="5" style="min-width: 115px;">
+						  			<apex:selectOptions value="{!selectedProducts}">
+								  	</apex:selectOptions>
+						  		</apex:selectList>
+					  		</div>
+					  		</td>
+				  		<!-- Product filter end -->
+
+				  		<!-- Buttons Start -->
+							<td style="width: 8%">
+					  		<apex:commandButton rendered="{!canSave}" value="Save Changes" action="{!save}" reRender="results,messages" oncomplete="confirmSave()" style="width: 140px;" status="spinnerStatus" />
+					  		<apex:commandButton value="Apply Filters" action="{!updateRecords}" reRender="results,messages" style="width: 140px;" status="spinnerStatus" /><br />
+					  		<apex:commandButton value="Clear Filters" action="{!clearFilters}" reRender="results,filters,messages" style="width: 140px;" status="spinnerStatus" /><br />
+					  		<apex:commandButton value="Refresh My Pipeline" action="{!runAEBatch}" reRender="results,filters,messages" style="width: 140px;" status="spinnerStatus" /><br />
+					  	</td>
+					  	<!-- Buttons end -->
+					  </tr></table>
+				  </apex:outputPanel></td>
+		  	</tr>
+		  	<!-- End filters -->
+
+		  	<apex:outputPanel id="bottom"><tr >
+			  	<!-- start parent account selection -- MAX 10,000 Parent Accounts-->
+				  <td style="padding:10px; width: 20%; vertical-align: top;">
+					  <div style="margin-top: 1px; color: #ffffff!important; line-height: 31px; background-color: #1A4982; letter-spacing: 1px; text-align: center; vertical-align: middle;">Parent Account:<br /></div>
+						<div style="text-align: center; vertical-align: middle;">
+						  <apex:selectList value="{!selectedParentAccount}" multiselect="false" size="15" style="width: 100%;">
+						  	<apex:selectOptions value="{!allParentAccountOptions[0]}" rendered="{!!ISNULL(allParentAccountOptions[0])}" />
+			  				<apex:selectOptions value="{!allParentAccountOptions[1]}" rendered="{!!ISNULL(allParentAccountOptions[1])}" />
+			  				<apex:selectOptions value="{!allParentAccountOptions[2]}" rendered="{!!ISNULL(allParentAccountOptions[2])}" />
+			  				<apex:selectOptions value="{!allParentAccountOptions[3]}" rendered="{!!ISNULL(allParentAccountOptions[3])}" />
+			  				<apex:selectOptions value="{!allParentAccountOptions[4]}" rendered="{!!ISNULL(allParentAccountOptions[4])}" />
+			  				<apex:selectOptions value="{!allParentAccountOptions[5]}" rendered="{!!ISNULL(allParentAccountOptions[5])}" />
+			  				<apex:selectOptions value="{!allParentAccountOptions[6]}" rendered="{!!ISNULL(allParentAccountOptions[6])}" />
+			  				<apex:selectOptions value="{!allParentAccountOptions[7]}" rendered="{!!ISNULL(allParentAccountOptions[7])}" />
+			  				<apex:selectOptions value="{!allParentAccountOptions[8]}" rendered="{!!ISNULL(allParentAccountOptions[8])}" />
+			  				<apex:selectOptions value="{!allParentAccountOptions[9]}" rendered="{!!ISNULL(allParentAccountOptions[9])}" />
+						  	<apex:actionSupport event="onchange" action="{!clearFilters}" reRender="chooseParent,results,filters,messages" status="spinnerStatus"/>
+							</apex:selectList>
+						</div>
+				  </td>
+				  <!-- end parent account selection --> 	
+
+				  <!-- start table of editable records -->
+				  
+				  <td style="padding:10px; width: 80%; vertical-align: top;"><apex:outputPanel id="results">
+					<div class="datatablediv">
+					<table><tr style="vertical-align: top;">
+						<td>
+							<table class="slds-table slds-table--bordered slds-table--cell-buffer slds-table--col-bordered datatable" style="vertical-align: top; border-color: #999999!important; border-style: solid!important; border-width: 1px!important; margin:1px; position: absolute; width: 425px; z-index: 100">
+							  <thead>
+							    <tr class="slds-text-title--caps">
+							      <th scope="col" colspan="3" style="text-align:center; height: 31px;">
+							        <div class="slds-truncate" title="Account Name">{!selectedParentAccountName}</div>
+							      </th>
+							    </tr>
+							    <tr class="slds-text-title--caps" style="text-align:center!important;">
+							      <th scope="col">
+							        AE
+							      </th>
+							      <th scope="col">
+							        Location Name
+							      </th>
+							      <th scope="col">
+							        Product
+							      </th>
+							    </tr>
+							  </thead>
+							  <tbody>
+							    <apex:repeat value="{!tableRows}" var="r">
+								    <tr>
+								      <td data-label="{!r.accountExecutive}" style="max-width: 55px;">
+								        <div class="slds-truncate" title="{!r.accountExecutiveFull}">{!r.accountExecutive}</div>
+								      </td>
+								      <td data-label="{!r.accountName}" style="max-width: 210px;">
+								        <div class="slds-truncate" title="{!r.accountName}"><apex:outputLink value="/{!r.accountId}" target="_blank">{!r.accountName}</apex:outputLink></div>
+								      </td>
+								      <td data-label="{!r.product}" style="max-width: 160px;">
+								        <div class="slds-truncate" title="{!r.product}">{!r.product}</div>
+								      </td>
+								    </tr>
+								  </apex:repeat>
+							  </tbody>
+							</table>
+						</td>
+						<td>
+							<table class="slds-table slds-table--bordered slds-table--cell-buffer slds-table--col-bordered datatable" style="margin-left: 425px;">
+							  <thead>
+							    <tr class="slds-text-title--caps">
+							      <apex:repeat value="{!quarters}" var="q">
+								      <th scope="col" colspan="4" style="text-align:center;" >
+								        <div class="slds-truncate" title="{!q}">{!q}</div>
+								      </th>
+							      </apex:repeat>
+							      <th scope="col" rowspan="2" style="width: 80px!important;">
+							        <div class="" title="Total Pipeline">Total Pipeline</div>
+							      </th>
+							      <th scope="col" rowspan="2" style="width: 80px!important;">
+							        <div class="" title="Total Trended Volume">Total Trended Volume</div>
+							      </th>
+							      <th scope="col" rowspan="2" style="width: 80px!important;">
+							        <div class="" title="Total Adjustment">Total Adjustment</div>
+							      </th>
+							      <th scope="col" rowspan="2" style="width: 80px!important;">
+							        <div class="" title="Total Adjusted Projection">Total Adjusted Projection</div>
+							      </th>
+							    </tr>
+							    <tr class="slds-text-title--caps">
+							      <apex:repeat value="{!quarters}" var="q">
+								      <th scope="col" style="width: 85px;">
+								        Pipeline
+								      </th>
+								      <th scope="col" style="width: 85px;">
+								        Trended Volume
+								      </th>
+								      <th scope="col" style="width: 85px;">
+								        Adjustment
+								      </th>
+								      <th scope="col" style="width: 85px;">
+								        Adjusted Projection
+								      </th>
+								    </apex:repeat>
+							    </tr>
+							  </thead>
+							  <tbody>
+							    <apex:repeat value="{!tableRows}" var="r">
+								    <tr>
+								      <apex:repeat value="{!r.cells}" var="c">
+									      <td data-label="{!c.Pipeline}">
+									        <div class="slds-truncate" title="{!c.Pipeline}">
+									        	<apex:outputText value="{0, number, ###,##0}">
+	    											<apex:param value="{!c.Pipeline}"/>
+												</apex:outputText>
+											</div>
+									      </td>
+									      <td data-label="{!c.Forecast}">
+									        <div class="slds-truncate" title="{!c.Forecast}">
+										        <apex:outputText value="{0, number, ###,##0}">
+												    <apex:param value="{!c.Forecast}"/>
+												</apex:outputText>
+											</div>
+									      </td>
+									      <td data-label="{!c.Adjustment}">
+									        <div class="slds-truncate" title="Q1 Value">
+									        		<apex:outputText rendered="{!!canSave}" value="{0, number, ###,##0}">
+													    <apex:param value="{!c.Forecast}"/>
+													</apex:outputText>
+													<apex:input rendered="{!canSave}" type="number" value="{!c.Adjustment}" size="3" html-max="500000000" style="width: 50px; text-align:center;" />
+									        </div>
+									      </td>
+									      <td data-label="{!c.AdjustedForecast}">
+									        <div class="slds-truncate" title="{!c.AdjustedForecast}">
+										        <apex:outputText value="{0, number, ###,##0}">
+												    <apex:param value="{!c.AdjustedForecast}"/>
+												</apex:outputText>
+											</div>
+									      </td>
+									    </apex:repeat>
+								      <td data-label="{!r.pipelineTotal}">
+								        <div class="slds-truncate" title="{!r.pipelineTotal}">
+								        	<apex:outputText value="{0, number, ###,##0}">
+											    <apex:param value="{!r.pipelineTotal}"/>
+											</apex:outputText>
+										</div>
+								      </td>
+								      <td data-label="{!r.ForecastTotal}">
+								        <div class="slds-truncate" title="{!r.ForecastTotal}">
+								        	<apex:outputText value="{0, number, ###,##0}">
+											    <apex:param value="{!r.ForecastTotal}"/>
+											</apex:outputText>
+										</div>
+								      </td>
+								      <td data-label="{!r.AdjustmentTotal}">
+								        <div class="slds-truncate" title="{!r.AdjustmentTotal}">
+								        	<apex:outputText value="{0, number, ###,##0}">
+											    <apex:param value="{!r.AdjustmentTotal}"/>
+											</apex:outputText>
+										</div>
+								      </td>
+								      <td data-label="{!r.AdjustedForecastTotal}">
+								        <div class="slds-truncate" title="{!r.AdjustedForecastTotal}">
+								        	<apex:outputText value="{0, number, ###,##0}">
+											    <apex:param value="{!r.AdjustedForecastTotal}"/>
+											</apex:outputText>
+										</div>
+								      </td>
+								    </tr>
+								  </apex:repeat>
+							  </tbody>
+							</table>
+
+							<apex:outputText rendered="{!filteredListEmpty}" value="No results matched the applied filters." />
+							<apex:outputText rendered="{!filtersEmpty}" value="You must select at least one filter to display results." />
+							
+						</td></tr></table></div>
+						*Totals will update after saving.
+					</apex:outputPanel></td>
+				</tr></apex:outputPanel>
+			</table>
+
+			<apex:actionStatus id="spinnerStatus">
+				<apex:facet name="start">
+					<div style="height: 6rem;">
+					  <div role="status" class="slds-spinner slds-spinner_medium">
+					    <span class="slds-assistive-text">Updating</span>
+					    <div class="slds-spinner__dot-a"></div>
+					    <div class="slds-spinner__dot-b"></div>
+					  </div>
+					</div>
+				</apex:facet>
+			</apex:actionStatus>
+
+	</apex:form>
+
+</body>
+<script>
+	function confirmSave() {
+		window.alert("Your changes have been saved!");
+	}
+
+	window.onbeforeunload = function (e){
+	  e.returnValue = "Are you sure you want to leave?";
+	};
+
+</script>
+</apex:page>

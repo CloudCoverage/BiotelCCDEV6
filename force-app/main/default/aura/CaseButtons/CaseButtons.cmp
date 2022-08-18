@@ -1,0 +1,73 @@
+<aura:component controller="CaseButtonsController"  implements="flexipage:availableForRecordHome,force:hasRecordId,lightning:isUrlAddressable,lightning:actionOverride,force:lightningQuickAction" access="global" >
+    <aura:attribute name="record" type="Case" />    
+    <aura:attribute name = "isLoaded" type = "Boolean" default = "false"/>
+    <aura:attribute name = "buttonPressed" type = "Boolean" default = "false"/>
+    <aura:attribute name = "showGreen" type = "Boolean" default = "false"/>
+    <aura:attribute name = "showRed" type = "Boolean" default = "false"/>
+
+    <aura:attribute name="cancelReason" type="String" default = ""/> 
+    <aura:attribute name="cancelReasonOther" type="String" default = ""/> 
+    <aura:attribute name="oCancelReason" type="Object"/> 
+    <c:Picklist sObjectName="Case" fieldName="Cancellation_Reason_picklist__c" picklistValues="{!v.oCancelReason}" />  
+
+    <force:recordData aura:id="prescriptionEditor" 
+                    recordId="{!v.recordId}" 
+                    targetFields="{!v.record}" 
+                    fields="Id, CaseNumber, Status, Order__r.Activation_Workflow_Status__c, Order__c, Order__r.Enrollment_Backend_ID__c, Agency_Requested__c, Button_Disabled__c"
+                    mode="VIEW"
+                    recordUpdated="{!c.handleRecord}"/>
+        
+        <aura:if isTrue="{!!v.isLoaded }">
+            <lightning:spinner alternativeText="Loading"/>
+        </aura:if>
+        <aura:if isTrue="{!v.isLoaded}">
+            <aura:if isTrue="{!v.showRed}">
+                <div class="slds-grid slds-wrap" style="background-color: white;">
+                    <div style="background-color: white;" class="slds-size_1-of-2 slds-p-around_xx-small">
+                        <lightning:select value="{!v.cancelReason}" 
+                                aura:id="formId"
+                                label="Cancellation Reason"
+                                disabled="{!v.record.Button_Disabled__c}"
+                                required="true" 
+                                class="field"> 
+                            <option value=""></option>
+                            <aura:iteration items="{!v.oCancelReason}" var="item">
+                                <option value="{!item.value}" 
+                                    text="{!item}"
+                                    selected="{!item.Id == v.cancelReason}"
+                                />
+
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+
+                    <div align="right" class="slds-size_1-of-2 slds-p-around_xx-small">
+                        <br/>
+                        <lightning:button   class="slds-button slds-button_destructive" 
+                                            label="Cancel Order" 
+                                            type="submit"
+                                            disabled="{!v.record.Button_Disabled__c}" 
+                                            onclick="{!c.cancelOrder}"/>
+                        &nbsp;&nbsp;
+                    </div> 
+                    <aura:if isTrue="{!and(v.cancelReason, v.cancelReason == 'Other')}">
+                        <div class="slds-size_1-of-2 slds-p-around_xx-small">
+                            <lightning:input aura:id="formId" label="Other Reason" value="{!v.cancelReasonOther}" />
+                        </div>
+                        <div align="right" class="slds-size_1-of-2 slds-p-around_xx-small">
+                            &nbsp;
+                        </div>  
+                    </aura:if>                      
+                </div>
+            </aura:if>
+            <aura:if isTrue="{!v.showGreen}"> 
+                            <div align="right" style="background-color: white;" class="slds-var-p-around_small slds-var-p-right_medium">
+                            <lightning:button   class="slds-button slds-button_success" 
+                                                label="Reinstate Order"
+                                                disabled="{!v.record.Button_Disabled__c}" 
+                                                type="submit" 
+                                                onclick="{!c.reverseCancellation}"/>
+                        </div>
+                    </aura:if>              
+        </aura:if>
+</aura:component>

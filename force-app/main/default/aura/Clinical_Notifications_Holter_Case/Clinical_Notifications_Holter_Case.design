@@ -1,0 +1,6 @@
+<design:component label="Clinical Notifications - Holter Case">
+
+    <design:attribute label="Flow Name"
+                      name="flowName"
+                      description="Unique Name of the Flow to display."/>	
+</design:component>

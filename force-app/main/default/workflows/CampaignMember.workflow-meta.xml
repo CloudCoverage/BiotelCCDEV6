@@ -1,0 +1,649 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Interested_Tradeshow_Lead_NotificationAtlantic</fullName>
+        <ccEmails>tina.fairing@cardionet.com, geof.capodanno@cardionet.com, AnnMarie.Scheuer@cardionet.com</ccEmails>
+        <description>Interested Tradeshow Lead Notification - Atlantic</description>
+        <protected>false</protected>
+        <recipients>
+            <type>campaignMemberDerivedOwner</type>
+        </recipients>
+        <recipients>
+            <recipient>Atlantic_RSD</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>caroline.mcginnis@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Tradeshow_Lead_to_AE</template>
+    </alerts>
+    <alerts>
+        <fullName>Interested_Tradeshow_Lead_NotificationAtlanticSouth</fullName>
+        <ccEmails>tina.fairing@cardionet.com, geof.capodanno@cardionet.com, AnnMarie.Scheuer@cardionet.com</ccEmails>
+        <description>Interested Tradeshow Lead Notification - Atlantic South</description>
+        <protected>false</protected>
+        <recipients>
+            <type>campaignMemberDerivedOwner</type>
+        </recipients>
+        <recipients>
+            <recipient>Atlantic_South_RSD</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>caroline.mcginnis@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Tradeshow_Lead_to_AE</template>
+    </alerts>
+    <alerts>
+        <fullName>Interested_Tradeshow_Lead_NotificationCentralNorth</fullName>
+        <ccEmails>tina.fairing@cardionet.com, geof.capodanno@cardionet.com, AnnMarie.Scheuer@cardionet.com</ccEmails>
+        <description>Interested Tradeshow Lead Notification - Central North</description>
+        <protected>false</protected>
+        <recipients>
+            <type>campaignMemberDerivedOwner</type>
+        </recipients>
+        <recipients>
+            <recipient>Central_North_RSD</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>caroline.mcginnis@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Tradeshow_Lead_to_AE</template>
+    </alerts>
+    <alerts>
+        <fullName>Interested_Tradeshow_Lead_NotificationMedNet</fullName>
+        <ccEmails>tina.fairing@cardionet.com, geof.capodanno@cardionet.com</ccEmails>
+        <description>Interested Tradeshow Lead Notification - MedNet</description>
+        <protected>false</protected>
+        <recipients>
+            <type>campaignMemberDerivedOwner</type>
+        </recipients>
+        <recipients>
+            <recipient>jr.finkelmeier@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Tradeshow_Lead_to_AE</template>
+    </alerts>
+    <alerts>
+        <fullName>Interested_Tradeshow_Lead_NotificationMidSouth2</fullName>
+        <ccEmails>tina.fairing@cardionet.com, geof.capodanno@cardionet.com, AnnMarie.Scheuer@cardionet.com</ccEmails>
+        <description>Interested Tradeshow Lead Notification - South</description>
+        <protected>false</protected>
+        <recipients>
+            <type>campaignMemberDerivedOwner</type>
+        </recipients>
+        <recipients>
+            <recipient>South_RSD</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>caroline.mcginnis@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Tradeshow_Lead_to_AE</template>
+    </alerts>
+    <alerts>
+        <fullName>Interested_Tradeshow_Lead_NotificationMidwest</fullName>
+        <ccEmails>tina.fairing@cardionet.com, geof.capodanno@cardionet.com, AnnMarie.Scheuer@cardionet.com</ccEmails>
+        <description>Interested Tradeshow Lead Notification - Mid West</description>
+        <protected>false</protected>
+        <recipients>
+            <type>campaignMemberDerivedOwner</type>
+        </recipients>
+        <recipients>
+            <recipient>Midwest_RSD</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>caroline.mcginnis@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Tradeshow_Lead_to_AE</template>
+    </alerts>
+    <alerts>
+        <fullName>Interested_Tradeshow_Lead_NotificationMountain</fullName>
+        <ccEmails>tina.fairing@cardionet.com, geof.capodanno@cardionet.com, AnnMarie.Scheuer@cardionet.com</ccEmails>
+        <description>Interested Tradeshow Lead Notification - Mountain</description>
+        <protected>false</protected>
+        <recipients>
+            <type>campaignMemberDerivedOwner</type>
+        </recipients>
+        <recipients>
+            <recipient>Mountain_RSD</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>caroline.mcginnis@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Tradeshow_Lead_to_AE</template>
+    </alerts>
+    <alerts>
+        <fullName>Interested_Tradeshow_Lead_NotificationNortheast</fullName>
+        <ccEmails>tina.fairing@cardionet.com, geof.capodanno@cardionet.com, AnnMarie.Scheuer@cardionet.com</ccEmails>
+        <description>Interested Tradeshow Lead Notification - Northeast</description>
+        <protected>false</protected>
+        <recipients>
+            <type>campaignMemberDerivedOwner</type>
+        </recipients>
+        <recipients>
+            <recipient>Northeast_RSD</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>caroline.mcginnis@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Tradeshow_Lead_to_AE</template>
+    </alerts>
+    <alerts>
+        <fullName>Interested_Tradeshow_Lead_NotificationNorthwest</fullName>
+        <ccEmails>tina.fairing@cardionet.com, geof.capodanno@cardionet.com, AnnMarie.Scheuer@cardionet.com</ccEmails>
+        <description>Interested Tradeshow Lead Notification - Northwest</description>
+        <protected>false</protected>
+        <recipients>
+            <type>campaignMemberDerivedOwner</type>
+        </recipients>
+        <recipients>
+            <recipient>Northwest_RSD</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>caroline.mcginnis@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Tradeshow_Lead_to_AE</template>
+    </alerts>
+    <alerts>
+        <fullName>Interested_Tradeshow_Lead_NotificationOhioValley</fullName>
+        <ccEmails>tina.fairing@cardionet.com, geof.capodanno@cardionet.com, AnnMarie.Scheuer@cardionet.com</ccEmails>
+        <description>Interested Tradeshow Lead Notification - Ohio Valley</description>
+        <protected>false</protected>
+        <recipients>
+            <type>campaignMemberDerivedOwner</type>
+        </recipients>
+        <recipients>
+            <recipient>Ohio_Valley_RSD</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>caroline.mcginnis@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Tradeshow_Lead_to_AE</template>
+    </alerts>
+    <alerts>
+        <fullName>Interested_Tradeshow_Lead_NotificationPacific</fullName>
+        <ccEmails>tina.fairing@cardionet.com, geof.capodanno@cardionet.com, AnnMarie.Scheuer@cardionet.com</ccEmails>
+        <description>Interested Tradeshow Lead Notification - Pacific</description>
+        <protected>false</protected>
+        <recipients>
+            <type>campaignMemberDerivedOwner</type>
+        </recipients>
+        <recipients>
+            <recipient>Pacific_RSD</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>caroline.mcginnis@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Tradeshow_Lead_to_AE</template>
+    </alerts>
+    <alerts>
+        <fullName>Interested_Tradeshow_Lead_NotificationSW</fullName>
+        <ccEmails>tina.fairing@cardionet.com, geof.capodanno@cardionet.com, AnnMarie.Scheuer@cardionet.com</ccEmails>
+        <description>Interested Tradeshow Lead Notification - Southwest</description>
+        <protected>false</protected>
+        <recipients>
+            <type>campaignMemberDerivedOwner</type>
+        </recipients>
+        <recipients>
+            <recipient>Southwest_RSD</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>caroline.mcginnis@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Tradeshow_Lead_to_AE</template>
+    </alerts>
+    <alerts>
+        <fullName>Interested_Tradeshow_Lead_NotificationSoutheast</fullName>
+        <ccEmails>tina.fairing@cardionet.com, geof.capodanno@cardionet.com, AnnMarie.Scheuer@cardionet.com</ccEmails>
+        <description>Interested Tradeshow Lead Notification - Southeast</description>
+        <protected>false</protected>
+        <recipients>
+            <type>campaignMemberDerivedOwner</type>
+        </recipients>
+        <recipients>
+            <recipient>Southeast_RSD</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>caroline.mcginnis@gobio.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BioTel_Heart_Automated_Templates/Tradeshow_Lead_to_AE</template>
+    </alerts>
+    <rules>
+        <fullName>Interested Tradeshow Lead Notification - Atlantic</fullName>
+        <actions>
+            <name>Interested_Tradeshow_Lead_NotificationAtlantic</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 and 4 AND (2 or 3)</booleanFilter>
+        <criteriaItems>
+            <field>CampaignMember.Status</field>
+            <operation>equals</operation>
+            <value>Interested</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Lead_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>atlantic r</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Contact.Contact_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>atlantic r</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>CampaignMember.LastModifiedById</field>
+            <operation>equals</operation>
+            <value>Tina Fairing,Caroline McGinnis,Ann Marie Scheuer,Geof Capodanno,maria mastrocola</value>
+        </criteriaItems>
+        <description>Sends an alert to Account Executive when a campaign member is added to a campaign and has indicated interest in our services</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Interested Tradeshow Lead Notification - Atlantic South</fullName>
+        <actions>
+            <name>Interested_Tradeshow_Lead_NotificationAtlanticSouth</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 and 4 AND (2 or 3)</booleanFilter>
+        <criteriaItems>
+            <field>CampaignMember.Status</field>
+            <operation>equals</operation>
+            <value>Interested</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Lead_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>atlantic south</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Contact.Contact_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>atlantic south</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>CampaignMember.LastModifiedById</field>
+            <operation>equals</operation>
+            <value>Tina Fairing,Caroline McGinnis,Ann Marie Scheuer,Geof Capodanno,maria mastrocola</value>
+        </criteriaItems>
+        <description>Sends an alert to Account Executive when a campaign member is added to a campaign and has indicated interest in our services</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Interested Tradeshow Lead Notification - Central North</fullName>
+        <actions>
+            <name>Interested_Tradeshow_Lead_NotificationCentralNorth</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 and 4 AND (2 or 3)</booleanFilter>
+        <criteriaItems>
+            <field>CampaignMember.Status</field>
+            <operation>equals</operation>
+            <value>Interested</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Lead_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>central north</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Contact.Contact_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>central north</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>CampaignMember.LastModifiedById</field>
+            <operation>equals</operation>
+            <value>Tina Fairing,Caroline McGinnis,Ann Marie Scheuer,Geof Capodanno,maria mastrocola</value>
+        </criteriaItems>
+        <description>Sends an alert to Account Executive when a campaign member is added to a campaign and has indicated interest in our services</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Interested Tradeshow Lead Notification - MedNet</fullName>
+        <actions>
+            <name>Interested_Tradeshow_Lead_NotificationMedNet</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 and 4 AND (2 or 3)</booleanFilter>
+        <criteriaItems>
+            <field>CampaignMember.Status</field>
+            <operation>equals</operation>
+            <value>Interested</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Lead_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>Mednet</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Contact.Contact_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>mednet</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>CampaignMember.LastModifiedById</field>
+            <operation>equals</operation>
+            <value>Tina Fairing,Liz Watts,Ann Marie Scheuer,Geof Capodanno,maria mastrocola</value>
+        </criteriaItems>
+        <description>Sends an alert to Account Executive when a campaign member is added to a campaign and has indicated interest in our services</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Interested Tradeshow Lead Notification - MidWest</fullName>
+        <actions>
+            <name>Interested_Tradeshow_Lead_NotificationMidwest</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 and 4 AND (2 or 3)</booleanFilter>
+        <criteriaItems>
+            <field>CampaignMember.Status</field>
+            <operation>equals</operation>
+            <value>Interested</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Lead_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>midwest</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Contact.Contact_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>midwest</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>CampaignMember.LastModifiedById</field>
+            <operation>equals</operation>
+            <value>Tina Fairing,Caroline McGinnis,Ann Marie Scheuer,Geof Capodanno,maria mastrocola</value>
+        </criteriaItems>
+        <description>Sends an alert to Account Executive when a campaign member is added to a campaign and has indicated interest in our services</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Interested Tradeshow Lead Notification - Mountain</fullName>
+        <actions>
+            <name>Interested_Tradeshow_Lead_NotificationMountain</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 and 4 AND (2 or 3)</booleanFilter>
+        <criteriaItems>
+            <field>CampaignMember.Status</field>
+            <operation>equals</operation>
+            <value>Interested</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Lead_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>Mountain</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Contact.Contact_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>Mountain</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>CampaignMember.LastModifiedById</field>
+            <operation>equals</operation>
+            <value>Tina Fairing,Caroline McGinnis,Ann Marie Scheuer,Geof Capodanno,maria mastrocola</value>
+        </criteriaItems>
+        <description>Sends an alert to Account Executive when a campaign member is added to a campaign and has indicated interest in our services</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Interested Tradeshow Lead Notification - Northeast</fullName>
+        <actions>
+            <name>Interested_Tradeshow_Lead_NotificationNortheast</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 and 4 AND (2 or 3)</booleanFilter>
+        <criteriaItems>
+            <field>CampaignMember.Status</field>
+            <operation>equals</operation>
+            <value>Interested</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Lead_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>northeast</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Contact.Contact_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>northeast</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>CampaignMember.LastModifiedById</field>
+            <operation>equals</operation>
+            <value>Tina Fairing,Caroline McGinnis,Ann Marie Scheuer,Geof Capodanno,maria mastrocola</value>
+        </criteriaItems>
+        <description>Sends an alert to Account Executive when a campaign member is added to a campaign and has indicated interest in our services</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Interested Tradeshow Lead Notification - Northwest</fullName>
+        <actions>
+            <name>Interested_Tradeshow_Lead_NotificationNorthwest</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 and 4 AND (2 or 3)</booleanFilter>
+        <criteriaItems>
+            <field>CampaignMember.Status</field>
+            <operation>equals</operation>
+            <value>Interested</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Lead_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>northwest</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Contact.Contact_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>northwest</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>CampaignMember.LastModifiedById</field>
+            <operation>equals</operation>
+            <value>Tina Fairing,Caroline McGinnis,Ann Marie Scheuer,Geof Capodanno,maria mastrocola</value>
+        </criteriaItems>
+        <description>Sends an alert to Account Executive when a campaign member is added to a campaign and has indicated interest in our services</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Interested Tradeshow Lead Notification - Ohio Valley</fullName>
+        <actions>
+            <name>Interested_Tradeshow_Lead_NotificationOhioValley</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 and 4 AND (2 or 3)</booleanFilter>
+        <criteriaItems>
+            <field>CampaignMember.Status</field>
+            <operation>equals</operation>
+            <value>Interested</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Lead_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>mid atlantic,Ohio Valley</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Contact.Contact_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>mid Atlantic,Ohio Valley</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>CampaignMember.LastModifiedById</field>
+            <operation>equals</operation>
+            <value>Tina Fairing,Caroline McGinnis,Ann Marie Scheuer,Geof Capodanno,maria mastrocola</value>
+        </criteriaItems>
+        <description>Sends an alert to Account Executive when a campaign member is added to a campaign and has indicated interest in our services</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Interested Tradeshow Lead Notification - SoCal</fullName>
+        <actions>
+            <name>Interested_Tradeshow_Lead_NotificationPacific</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 and 4 AND (2 or 3)</booleanFilter>
+        <criteriaItems>
+            <field>CampaignMember.Status</field>
+            <operation>equals</operation>
+            <value>Interested</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Lead_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>Pacific</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Contact.Contact_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>Pacific</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>CampaignMember.LastModifiedById</field>
+            <operation>equals</operation>
+            <value>Tina Fairing,Caroline McGinnis,Ann Marie Scheuer,Geof Capodanno,maria mastrocola</value>
+        </criteriaItems>
+        <description>Sends an alert to Account Executive when a campaign member is added to a campaign and has indicated interest in our services</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Interested Tradeshow Lead Notification - South</fullName>
+        <actions>
+            <name>Interested_Tradeshow_Lead_NotificationMidSouth2</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 and 4 AND (2 or 3)</booleanFilter>
+        <criteriaItems>
+            <field>CampaignMember.Status</field>
+            <operation>equals</operation>
+            <value>Interested</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Lead_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>south r</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Contact.Contact_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>south r</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>CampaignMember.LastModifiedById</field>
+            <operation>equals</operation>
+            <value>Tina Fairing,Caroline McGinnis,Ann Marie Scheuer,Geof Capodanno,maria mastrocola</value>
+        </criteriaItems>
+        <description>Sends an alert to Account Executive when a campaign member is added to a campaign and has indicated interest in our services</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Interested Tradeshow Lead Notification - Southeast</fullName>
+        <actions>
+            <name>Interested_Tradeshow_Lead_NotificationSoutheast</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 and 4 AND (2 or 3)</booleanFilter>
+        <criteriaItems>
+            <field>CampaignMember.Status</field>
+            <operation>equals</operation>
+            <value>Interested</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Lead_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>southeast</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Contact.Contact_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>southeast</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>CampaignMember.LastModifiedById</field>
+            <operation>equals</operation>
+            <value>Tina Fairing,Caroline McGinnis,Ann Marie Scheuer,Geof Capodanno,maria mastrocola</value>
+        </criteriaItems>
+        <description>Sends an alert to Account Executive when a campaign member is added to a campaign and has indicated interest in our services</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Interested Tradeshow Lead Notification - Southwest</fullName>
+        <actions>
+            <name>Interested_Tradeshow_Lead_NotificationSW</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 and 4 AND (2 or 3)</booleanFilter>
+        <criteriaItems>
+            <field>CampaignMember.Status</field>
+            <operation>equals</operation>
+            <value>Interested</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Lead_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>southwest</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Contact.Contact_Owner_Role__c</field>
+            <operation>startsWith</operation>
+            <value>southwest</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>CampaignMember.LastModifiedById</field>
+            <operation>equals</operation>
+            <value>Tina Fairing,Caroline McGinnis,Ann Marie Scheuer,Geof Capodanno,maria mastrocola</value>
+        </criteriaItems>
+        <description>Sends an alert to Account Executive when a campaign member is added to a campaign and has indicated interest in our services</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>
