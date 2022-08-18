@@ -37,9 +37,7 @@ public with sharing class FaxEnrollmentController {
     }
     
     @AuraEnabled
-    public static List<MiddlewareUtil.Bundle> callOtsBundleApi(String backendId, String serviceType){ 
-
-        String serviceTypeId = '3';
+    public static List<MiddlewareUtil.Bundle> callOtsBundleApi(String backendId, String serviceTypeId){ 
 
         List<MiddlewareUtil.Bundle> recs = MiddlewareUtil.getBundles(backendId, serviceTypeId);
         System.debug('xxx recs' + recs);

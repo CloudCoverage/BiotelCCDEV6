@@ -297,7 +297,7 @@
         var value = e.getSource().get("v.value");
         var dSource = c.get("v.fax").Device_Source__c;
 
-        if(value == 'EVENT' && dSource == 'MTP'){ 
+        if(value == 'EVENT'){ 
             c.set("v.showDeviceType", "true");
         }else{
             c.set("v.showDeviceType", "false");
@@ -319,14 +319,17 @@
 
         var st = c.get("v.fax.Service_Type__c");
 
-        if(st == 'EVENT' && value == 'MTP'){ 
+        if(st == 'EVENT'){ 
             c.set("v.showDeviceType", "true");
         }else{
             c.set("v.showDeviceType", "false");
             c.set("v.fax.Event_Device_Type__c", null);
         }        
         h.getOtsBundleHelper(c, e, h);
-    },    
+    },
+    deviceTypeChange : function(cmp, event, helper) {
+        helper.getOtsBundleHelper(cmp, event, helper);
+    },        
 
     showDiag2 : function(c, e, h) {
         let fax = c.get("v.fax");

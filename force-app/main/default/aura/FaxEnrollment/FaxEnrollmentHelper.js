@@ -187,7 +187,8 @@
 
         let backendId = c.get("v.plBackendId");
         let serviceType = c.get("v.fax.Service_Type__c");
-
+        let deviceType = c.get("v.fax.Event_Device_Type__c");
+        let serviceTypeId = deviceType && deviceType == 'Chest Plate' ? '1' : '3'
         console.log('in h.getOtsBundleHelper backendId '+ backendId);
 
         if(backendId != null && serviceType != null && serviceType != 'INR'){
@@ -196,7 +197,7 @@
     
             action.setParams({
                 "backendId": backendId,
-                "serviceType": serviceType
+                "serviceTypeId": serviceTypeId
              });        
     
             action.setCallback(this, function(response) {

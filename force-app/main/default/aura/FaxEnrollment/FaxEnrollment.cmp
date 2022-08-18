@@ -237,7 +237,6 @@
                                 disabled="{!!v.editing}" 
                                 class="{!'requiredInr' + ' ' + v.reqSubmit}"
                                 onchange="{!c.showOTS}">
-                                <option value=""></option>
                                 <aura:iteration items="{!v.oDeviceSource}" var="item">
                                     <option value="{!item.value}">{!item.label}</option>
                                 </aura:iteration>
@@ -278,7 +277,8 @@
 
                                 <lightning:select value="{!v.fax.Event_Device_Type__c}" label="Event Device Type"
                                     aura:id="formId" disabled="{!!v.editing}" required="{!v.isInrRequiredFields}"
-                                    class="field">
+                                    class="field"
+                                    onchange="{!c.deviceTypeChange}">
                                     <option value=""></option>
                                     <aura:iteration items="{!v.oEventDeviceType}" var="item">
                                         <option value="{!item.value}">{!item.label}</option>
