@@ -274,7 +274,7 @@
                     </div>
                     <div class="slds-size_1-of-3 slds-p-around_xx-small">
                         <aura:if isTrue="{!v.editing}">
-                            <aura:if isTrue="{!or(v.showDeviceType, v.fax.Event_Device_Type__c)}">
+                            <aura:if isTrue="{!v.showDeviceType}">
 
                                 <lightning:select value="{!v.fax.Event_Device_Type__c}" label="Event Device Type"
                                     aura:id="formId" disabled="{!!v.editing}" required="{!v.isInrRequiredFields}"

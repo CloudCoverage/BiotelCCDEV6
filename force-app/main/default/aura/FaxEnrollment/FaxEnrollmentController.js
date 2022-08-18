@@ -45,8 +45,6 @@
             var rtId = cmp.get("v.recTypeId");
             helper.instantiateFaxEnrollment(cmp, rtId);
             helper.getFeatureFlagHelper(cmp, rtId);
-            console.log('v.oDeviceSource ' + JSON.stringify(cmp.get("v.oDeviceSource")))
-            console.log('v.oEventDeviceType ' + JSON.stringify(cmp.get("v.oEventDeviceType")))            
         }
     },
 
