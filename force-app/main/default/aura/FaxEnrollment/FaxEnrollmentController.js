@@ -1,5 +1,6 @@
 ({
     init : function(cmp, event, helper) {
+        //test
         let inError = cmp.get("v.inError");
         if(!inError){
             let recordId = cmp.get("v.recordId");
