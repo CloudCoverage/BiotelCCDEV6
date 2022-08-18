@@ -16,6 +16,7 @@
             helper.getData(cmp, "c.getPicklistValues", {objectName: "Fax_Enrollment__c", fieldName: "Testing_Frequency__c"}, "v.testFrequency");
             helper.getData(cmp, "c.getPicklistValues", {objectName: "Fax_Enrollment__c", fieldName: "Training_Type__c"}, "v.trainingType");
             helper.getData(cmp, "c.getPicklistValues", {objectName: "Fax_Enrollment__c", fieldName: "Guarantor_Relationship_to_Patient__c"}, "v.oRelationship");
+            helper.getData(cmp, "c.getPicklistValues", {objectName: "Fax_Enrollment__c", fieldName: "Status__c"}, "v.statuses");
 
             
             if(recordId == null || recordId == ""){

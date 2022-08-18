@@ -18,10 +18,6 @@
     <aura:handler name="lookupEvent" event="c:lookupEvent" action="{!c.getBackendId}" />
     <aura:attribute name="draftReasonSelected" type="List" default="[]" />
 
-    <aura:attribute name="statuses" type="Object" />
-        <c:Picklist sObjectName="Fax_Enrollment__c" fieldName="Status__c"
-            picklistValues="{!v.statuses}" />
-
     <aura:attribute name="recTypeId" type="String" default="" />
     <aura:attribute name="storedRecTypeId" type="String" default="" />
     <aura:attribute name="inrRecTypeId" type="String" default="" />
@@ -92,9 +88,10 @@
     <aura:attribute name="oRelationship" type="List" />
     <aura:attribute name="oEventDeviceType" type="List" />
     <aura:attribute name="oPatientGender" type="List" />
-    <aura:attribute name="oSTAT" type="list" />
-    <aura:attribute name="testFrequency" type="list" />
-    <aura:attribute name="trainingType" type="list" />
+    <aura:attribute name="oSTAT" type="List" />
+    <aura:attribute name="testFrequency" type="List" />
+    <aura:attribute name="trainingType" type="List" />
+    <aura:attribute name="statuses" type="List" />
 
     <lightning:spinner aura:id="spinner" alternativeText="" variant="brand" size="large" />
 
@@ -195,7 +192,7 @@
                         required="false">
                         <aura:iteration items="{!v.statuses}" var="item">
                                 <option value=""></option>
-                                <option value="{!item}">{!item}</option>
+                                <option value="{!item.value}">{!item.label}</option>
                         </aura:iteration>
                     </lightning:select>
                     </div>
