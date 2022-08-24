@@ -279,12 +279,7 @@ public with sharing class MiddlewareUtil {
         req.setMethod('GET'); 
         
         try {
-            if(!Test.isRunningTest()) {
-                res = h.send(req);
-            } else {
-                res.setStatus('204');
-                res.setStatusCode(204);
-            }            
+            res = h.send(req);
             if ((res.getStatusCode() == 0 || res.getStatusCode() == 200 || res.getStatusCode() == 201) && res.getBody() != null && res.getBody() != null) {
                 System.debug('xxxx getBundles res.getBody() > '+ res.getBody());
                 BundlesWrapper recsx = (BundlesWrapper) JSON.deserialize(res.getBody(), BundlesWrapper.class);		
@@ -399,12 +394,8 @@ public static HttpResponse getEnrollmentNumber(String submissionId){
         req.setMethod('GET'); 
         
         try {
-            if(!Test.isRunningTest()) {
-                res = h.send(req);
-            } else {
-                res.setStatus('204');
-                res.setStatusCode(204);
-            }            
+            res = h.send(req);
+         
             if ((res.getStatusCode() == 0 || res.getStatusCode() == 200 || res.getStatusCode() == 201) && res.getBody() != null && res.getBody() != null) {
                 System.debug('xxxx getPhysicians res.getBody() > '+ res.getBody());
                 PhysiciansWrapper recsx = (PhysiciansWrapper) JSON.deserialize(res.getBody(), PhysiciansWrapper.class);		
@@ -520,7 +511,7 @@ public static HttpResponse getEnrollmentNumber(String submissionId){
                     Payer_Info__c pi = new Payer_Info__c();
                     pi.Payer_Id__c = p.Payer_Uuid;
                     if(p.Payer_Name.length() > 80)
-                        pi.Name = p.Payer_Name.substring(1,80);
+                        pi.Name = p.Payer_Name.substring(0,80);
                     else    
                         pi.Name = p.Payer_Name;
                         

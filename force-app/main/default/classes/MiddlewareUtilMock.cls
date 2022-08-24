@@ -39,7 +39,7 @@ global  class MiddlewareUtilMock implements HttpCalloutMock {
             res.setBody('{"ZipCodes":[]');
             res.setStatusCode(400);
         }
-        else if(req.getEndpoint() == environment + '/api/Inventory/GetOTSBundles?locationId=ABC123&serviceTypeId=3'){
+        else if(req.getEndpoint().contains('/api/Inventory/GetOTSBundles')){
             System.debug('xxx we are in GetOTSBundles');
             res.setHeader('Content-Type', 'application/json');
             res.setBody('{"Bundles":[{"Id":"791dd4ff-e411-490f-b771-924ce49a0c81","DeviceSerialNumber":"MB5003608","DeviceTypeName":"C5 Monitor","DeviceTypeId":"bb7147db-3c08-427d-8f47-b521c23adda7"},{"Id":"116b16ff-4af8-4b82-ad1b-2e1a419d8320","DeviceSerialNumber":"MA1106205","DeviceTypeName":"C5 Monitor","DeviceTypeId":"bb7147db-3c08-427d-8f47-b521c23adda7"},{"Id":"74f1c8e5-df96-4a13-9350-76e65f586597","DeviceSerialNumber":"850394","DeviceTypeName":"ECAT Monitor","DeviceTypeId":"101cafe0-66e4-4873-8fd2-b4685ea1aee8"}]}');
@@ -52,14 +52,14 @@ global  class MiddlewareUtilMock implements HttpCalloutMock {
             res.setStatusCode(200);
 
         } 
-        else if(req.getEndpoint() == environment + '/api/Billing/GetEncounterNumber?encounterId=submissionId'){ 
+        else if(req.getEndpoint().contains('/api/Billing/GetEncounterNumber')){ 
             System.debug('xxx we are in GetEncounterNumber');
             res.setHeader('Content-Type', 'application/json');
             res.setBody('{"EncounterNumber":3627691.0}');
             res.setStatusCode(200);
         }
         else if(req.getEndpoint() == environment + '/api/PracticeManagement/GetPhysicians?locationId=ABC123'){ 
-            System.debug('xxx we are in GetEncounterNumber');
+            System.debug('xxx we are in GetPhysicians');
             res.setHeader('Content-Type', 'application/json');
             res.setBody('{"Physicians":[{"Id":"b2426980-a4db-4373-839f-07e263b13ded","FirstName":"Tyrion","Lastname":"Lannister"},{"Id":"0a0e294b-0cbe-4e5b-ad91-171002946962","FirstName":"ramanan","Lastname":"kumareswaran"},{"Id":"c7263e7d-1a94-4698-863f-fb8e6183c638","FirstName":"John","Lastname":"Doe"}]}');
             res.setStatusCode(200);
@@ -86,13 +86,19 @@ global  class MiddlewareUtilMock implements HttpCalloutMock {
         else if(req.getEndpoint() == environment + '/api/Inventory/GetEnrollmentShipments?enrollmentId=abc123'){ 
             System.debug('xxx we are in Controller/api/Inventory/GetEnrollmentShipments?enrollmentId=abc123');
             res.setHeader('Content-Type', 'application/json');
-            res.setBody('{"Shipments":[{"Id":null,"OwnerId":null,"BackendId":"ec3afe3b-9814-4ef5-a32d-ed08e782d2a1","IsDeleted":false,"Name":"2300928","LastViewedDate":null,"LastReferencedDate":null,"Enrollment":"f06106bd-80ef-4e8c-aa0f-ba21912b222b","BundleNumber":"2300928","CenterName":"Chester","DeliverByDate":"2019-07-19T00:00:00","FulfilledDateTime":"2019-07-18T00:00:00","KitName":"C6 Flex Electrode","Status":"Completed","Type":"Ship To Patient","CreatedUser":"CARDIONETandrea.purnell","CreatedDate":"2019-07-17T08:52:42.367","ShipmentItems":[{"Id":null,"IsDeleted":false,"Name":"100-0046-02","LastViewedDate":null,"LastReferencedDate":null,"Shipment":"ec3afe3b-9814-4ef5-a32d-ed08e782d2a1","AssetSerialNumber":"MT21001033","Description":"Monitor (C6) J3","Quantity":1.0,"BackendId":"2cccfa08-20aa-46c2-a260-f80effa8553a","ExtensionData":null}],"ExtensionData":null}]}');
+            String responseBody = '{"Shipments": [{"Id": null,"OwnerId": null,"BackendId": "2bda36e1-5004-ed11-b67c-005056af0989","IsDeleted": false,"Name": "2429246","LastViewedDate": null,"LastReferencedDate": null,"Enrollment": "3a548252-11a6-49da-8228-43773e8c430a","BundleNumber": "3014700","CenterName": "Chester","DeliverByDate": "2022-07-18T00:00:00","FulfilledDateTime": null,"KitName": "C6 v2 Combo Sprint/Std","Status": "Cancelled","Type": "Ship To Patient","CreatedUser": "mdcsingleSFAPI-SAL352","CreatedDate": "2022-07-15T15:14:59.377","ShipmentItems": [{"Id": null,"IsDeleted": false,"Name": "100-0040-02","LastViewedDate": null,"LastReferencedDate": null,"Shipment": "2bda36e1-5004-ed11-b67c-005056af0989","AssetSerialNumber": null,"Description": "Sensor (C6) v1","Quantity": 1.0,"BackendId": "2cda36e1-5004-ed11-b67c-005056af0989","ReturnTrackingNumber": null,"ExtensionData": null},{"Id": null,"IsDeleted": false,"Name": "100-0045-02","LastViewedDate": null,"LastReferencedDate": null,"Shipment": "2bda36e1-5004-ed11-b67c-005056af0989","AssetSerialNumber": null,"Description": "C6 Monitor Sprint","Quantity": 1.0,"BackendId": "30da36e1-5004-ed11-b67c-005056af0989","ReturnTrackingNumber": null,"ExtensionData": null},{"Id": null,"IsDeleted": false,"Name": "700-0072-01","LastViewedDate": null,"LastReferencedDate": null,"Shipment": "2bda36e1-5004-ed11-b67c-005056af0989","AssetSerialNumber": null,"Description": "30 ct Vermed Electrodes","Quantity": 1.0,"BackendId": "3eda36e1-5004-ed11-b67c-005056af0989","ReturnTrackingNumber": null,"ExtensionData": null}],"TrackingNumber": null,"ExtensionData": null},{"Id": null,"OwnerId": null,"BackendId": "163b1112-5818-ed11-b67c-005056af0989","IsDeleted": false,"Name": "2442545","LastViewedDate": null,"LastReferencedDate": null,"Enrollment": "3a548252-11a6-49da-8228-43773e8c430a","BundleNumber": "3111174","CenterName": "Chester","DeliverByDate": "2022-08-11T00:00:00","FulfilledDateTime": null,"KitName": "C6 v2 Combo Sprint/Std","Status": "Pending","Type": "Supplies","CreatedUser": "CARDIONET\\\\Matthew.Coulson","CreatedDate": "2022-08-10T02:56:50.82","ShipmentItems": [{"Id": null,"IsDeleted": false,"Name": "420-0030-01","LastViewedDate": null,"LastReferencedDate": null,"Shipment": "163b1112-5818-ed11-b67c-005056af0989","AssetSerialNumber": null,"Description": "Plastic Tray","Quantity": 1.0,"BackendId": "173b1112-5818-ed11-b67c-005056af0989","ReturnTrackingNumber": null,"ExtensionData": null}],"TrackingNumber": null,"ExtensionData": null}]}';
+            res.setBody(responseBody);
             res.setStatusCode(200);
         } else if(req.getEndpoint().contains('/api/Billing/GetPayers')){ 
             System.debug('xxx we are in /api/Billing/GetPayers');
             res.setHeader('Content-Type', 'application/json');
             res.setBody('[{"Payer_Uuid": "966b6b5a-b325-481d-aec6-c539ac512f91", "Payer_Name": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit"},{"Payer_Uuid": "1577869b-02bd-43ef-a764-da769069cd1e","Payer_Name": "Advanced Med Docs CA"}]');
             res.setStatusCode(200);
+        } else if(req.getEndpoint().contains('/api/Enrollment/GetEnrollmentNumber')){ 
+            System.debug('xxx we are in /api/Enrollment/GetEnrollmentNumber');
+            res.setHeader('Content-Type', 'application/json');
+            res.setBody('{"EnrollmentNumber":1859601}');
+            res.setStatusCode(200);            
         } else{
             System.debug('xxx we are in else ZipGood');
             res.setHeader('Content-Type', 'application/json');

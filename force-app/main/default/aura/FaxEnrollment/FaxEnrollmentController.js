@@ -282,6 +282,13 @@
             }
         })
 
+        if(cmp.get("v.eventDeviceTypeRequired") && !fax.Event_Device_Type__c){
+            emptyFieldFound = true
+        }
+        if(fax.Device_Source__c == 'OTS' && !fax.OTS_Device__c){
+            emptyFieldFound = true
+
+        }
         console.log('emptyFieldFound ' + emptyFieldFound)
 
         if(!emptyFieldFound && (!draftEnrollmentFeature || fax.Payer_Info__c || fax.Payer_Name__c)){
@@ -293,41 +300,46 @@
 
     },
  
-    serviceTypeChange : function(c, e, h) {
-        var value = e.getSource().get("v.value");
-        var dSource = c.get("v.fax").Device_Source__c;
-
+    serviceTypeChange : function(cmp, event, helper) {
+        var value = event.getSource().get("v.value");
+        var dSource = cmp.get("v.fax").Device_Source__c;
+    
         if(value == 'EVENT'){ 
-            c.set("v.showDeviceType", "true");
+            cmp.set("v.showDeviceType", "true");
         }else{
-            c.set("v.showDeviceType", "false");
-            c.set("v.fax.Event_Device_Type__c", null);
+            cmp.set("v.showDeviceType", "false");
+            cmp.set("v.fax.Event_Device_Type__c", null);
         }
-
-        h.getOtsBundleHelper(c, e, h);
+        helper.setDeviceTypeRequired(cmp, dSource, value)
+        helper.getOtsBundleHelper(cmp, event, helper);
     },     
-
-    showOTS : function(c, e, h) {
-        var value = e.getSource().get("v.value");
-
+    
+    showOTS : function(cmp, event, helper) {
+        var value = event.getSource().get("v.value");
+    
         if(value == 'OTS'){
-            c.set("v.showOTS", "true");
+            cmp.set("v.showOTS", "true");
         }else{
-            c.set("v.showOTS", "false");
-            c.set("v.fax.OTS_Device__c", null);
+            cmp.set("v.showOTS", "false");
+            cmp.set("v.fax.OTS_Device__c", null);
         }
-
-        var st = c.get("v.fax.Service_Type__c");
-
+    
+        var st = cmp.get("v.fax.Service_Type__c");
+    
         if(st == 'EVENT'){ 
-            c.set("v.showDeviceType", "true");
+            cmp.set("v.showDeviceType", "true");
         }else{
-            c.set("v.showDeviceType", "false");
-            c.set("v.fax.Event_Device_Type__c", null);
-        }        
-        h.getOtsBundleHelper(c, e, h);
+            cmp.set("v.showDeviceType", "false");
+            cmp.set("v.fax.Event_Device_Type__c", null);
+        }
+        cmp.set("v.eventDeviceTypeRequired", value == 'OTS' && st == 'EVENT')
+        helper.setDeviceTypeRequired(cmp, value, st)
+        helper.getOtsBundleHelper(cmp, event, helper);
     },
+
     deviceTypeChange : function(cmp, event, helper) {
+        let fax = cmp.get("v.fax")
+        helper.setDeviceTypeRequired(cmp, fax.Device_Source__c, fax.Service_Type__c)
         helper.getOtsBundleHelper(cmp, event, helper);
     },        
 

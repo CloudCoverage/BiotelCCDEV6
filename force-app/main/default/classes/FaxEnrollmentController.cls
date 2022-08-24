@@ -24,7 +24,7 @@ public with sharing class FaxEnrollmentController {
             	Shipping_Street__c, Shipping_Street_2__c, LanguageId__c, Submission_Id__c, Encounter_Number__c, OTS_Device_Name__c,
                 Shipping_Postal_Code_Text__c, Billing_Postal_Code_Text__c,Draft_Reason__c,Email__c,Low__c,High__c,Below__c,
             Above__c,Testing_Frequency__c,Results_Phone__c,Results_Fax_Number__c,Training_Type__c,Payer_Info__c,
-            Guarantor_Relationship_to_Patient__c, Payer_not_in_List__c, Policy_ID__c, 
+            Guarantor_Relationship_to_Patient__c, Payer_not_in_List__c, Policy_ID__c, Region_Text__c, Account_Owner_Text__c, Patient_Date_of_Birth_Text__c,   
             Payer_Name__c,
             Order__r.OrderNumber,order__c
             FROM Fax_Enrollment__c
@@ -154,6 +154,12 @@ public with sharing class FaxEnrollmentController {
            res = MiddlewareEnrollment.process(faxObj);
             if(res.getStatusCode() == 200){
                 faxObj.Submission_Id__c = res.getBody().replace('"','');
+                
+                if(faxObj.Practice_Location__c != null && faxObj.Account_Owner_Text__c == null){
+                    Account practice = [SELECT Backend_ID__c, Owner.Name, Owner.Region__c FROM Account WHERE Id = :faxObj.Practice_Location__c];
+                    faxObj.Account_Owner_Text__c = practice.Owner.Name;
+                    faxObj.Region_Text__c  = practice.Owner.Region__c;
+                }
                 upsert faxObj;
             }
             if(draft){

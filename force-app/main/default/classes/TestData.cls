@@ -254,7 +254,8 @@ public class TestData {
           Guarantor_Relationship_to_Patient__c = 'Self',
           Billing_Postal_Code__c = zip.Id,
           Diagnosis_Code__c = diagnosisCode.Id,
-          Billing_Status__c = billingStatus.Id
+          Billing_Status__c = billingStatus.Id,
+          Email__c = 'test@test.com'
         ));
       }
 

@@ -123,10 +123,29 @@ public class MiddlewareUtilTest {
         List<Payer_Info__c> payerList = [SELECT Name FROM Payer_Info__c];
         SYstem.debug('xxx payerList ' + payerList);
         System.assertEquals(payerList.size(), 2, 'Payer List should have 2 records');
-        List<Payer_Info__c> NameTest = [SELECT Name FROM Payer_Info__c WHERE Name = 'orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i'];
+        List<Payer_Info__c> NameTest = [SELECT Name FROM Payer_Info__c WHERE Name = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i'];
         System.assertEquals(NameTest.size(), 1, 'Payer Name should truncate to 80 bytes');
 
-    }       
+    }
+       
+    static testmethod void getEnrollmentNumber() {
+
+		Test.startTest();        
+            Test.setMock(HttpCalloutMock.class, new MiddlewareUtilMock());
+            HttpResponse response = MiddlewareUtil.getEnrollmentNumber('abc123');
+        Test.stopTest();
+        System.assertEquals(response.getBody(), '{"EnrollmentNumber":1859601}', 'Response should have EnrollmentNumber of 1859601');
+    }
+
+    static testmethod void createRandomGuid() {
+
+		Test.startTest();        
+            Test.setMock(HttpCalloutMock.class, new MiddlewareUtilMock());
+            String testGuid = MiddlewareUtil.createRandomGuid();
+        Test.stopTest();
+        System.assertEquals(testGuid.length(), 36, 'should return a valid guid');
+    }
+    
      static testmethod void getBillingStatuses() {
         Middleware_Settings__c setting = new Middleware_Settings__c();
         setting.clientId__c = 'aaa';
@@ -210,10 +229,11 @@ public class MiddlewareUtilTest {
 		Test.startTest();        
             Test.setMock(HttpCalloutMock.class, new MiddlewareUtilMock());
             List<MiddlewareUtil.Shipment> testShipmentList = MiddlewareUtil.getShipments(enrollmentId);
+            System.debug('MiddlewareUtilTest.testShipmentList '+testShipmentList);
+            System.assertEquals('2429246', testShipmentList[0].Name, 'First Item\'s Name in Mock has changed');
+            System.assertEquals(2, testShipmentList.size(), 'Should be two shipments in the mock response: one canceled, one pending');
         Test.stopTest();
-        System.debug('MiddlewareUtilTest.testShipmentList '+testShipmentList);
-        System.assertEquals('2300928', testShipmentList[0].Name, 'Name should be 2300928');
-        System.assertEquals(testShipmentList.size(), 1,  'testShipmentList size should be 1');
+
     }
     static testmethod void getShipmentWithAuthtoken() {
       
@@ -225,8 +245,8 @@ public class MiddlewareUtilTest {
             List<MiddlewareUtil.Shipment> testShipmentList = MiddlewareUtil.getShipments(enrollmentId, authToken);
         Test.stopTest();
         System.debug('MiddlewareUtilTest.testShipmentList '+testShipmentList);
-        System.assertEquals(testShipmentList.size(), 1,  'testShipmentList size should be 1');
-        System.assertEquals('2300928', testShipmentList[0].Name, 'Name should be 2300928');
+        System.assertEquals(2, testShipmentList.size(),  'testShipmentList size should be 2');
+        System.assertEquals('2429246', testShipmentList[0].Name, 'Name should be 2429246');
     }    
     static testmethod void FollowupDate() {
         Middleware_Settings__c setting = new Middleware_Settings__c();

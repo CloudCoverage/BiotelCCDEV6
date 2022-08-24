@@ -2,82 +2,45 @@
 public with sharing class FaxEnrollmentControllerTest {
 
     static testmethod void SaveRecord() {
-        Account acc = new Account(
-            Name = 'ABC123',
-            Backend_ID__c = 'L-12713'          
-        );
-        insert acc;
 
-        Fax_Enrollment__c fax = new Fax_Enrollment__c(
-            Patient_First_Name__c = 'ABC123',
-            Practice_Location__c = acc.Id, 
-            Patient_Last_Name__c = 'ABC123', 
-            Patient_Date_of_Birth__c = Date.today() - 35,
-            Submission_Id__c = 'submissionId'            
-        );
-        Insert fax; 
+        Fax_Enrollment__c fax = getTestFaxRecord();
 
         String faxString = JSON.serialize(fax);
-        Id recTypeBTH = Schema.SObjectType.Fax_Enrollment__c.getRecordTypeInfosByName().get('BTH Enrollments').getRecordTypeId();
+
 
         Test.startTest();
             Test.setMock(HttpCalloutMock.class, new MiddlewareUtilMock());
-            FaxEnrollmentController.saveRec(faxString, false);
-            Fax_Enrollment__c fakeFax = FaxEnrollmentController.instantiateFax(recTypeBTH);
-            FaxEnrollmentController.EncounterWrapper enc = new FaxEnrollmentController.EncounterWrapper();
-            System.debug('xxx abc enc ' + enc);
-            System.assert(enc  != null, 'EncounterWrapper should not be null');
+            String result = FaxEnrollmentController.saveRec(faxString, false);
+            System.debug('result ' + result);
+            System.assertEquals(result, (String)fax.Id, 'should save and return a fax record');
 
         Test.stopTest();
     }
-
-    static testmethod void SaveDraftRecord() {
-
-        Account acc = new Account(
-            Name = 'ABC123',
-            Backend_ID__c = 'L-12713'          
-        );
-        insert acc;
-
-        Fax_Enrollment__c fax = new Fax_Enrollment__c(
-            Patient_First_Name__c = 'ABC123',
-            Practice_Location__c = acc.Id, 
-            Patient_Last_Name__c = 'ABC123', 
-            Patient_Date_of_Birth__c = Date.today() - 35,
-            Submission_Id__c = 'submissionId'            
-        );
-        Insert fax; 
-
-        String faxString = JSON.serialize(fax);
-        Id recTypeBTH = Schema.SObjectType.Fax_Enrollment__c.getRecordTypeInfosByName().get('BTH Enrollments').getRecordTypeId();
-
+    static testmethod void instantiateFax() {
         Test.startTest();
-            Test.setMock(HttpCalloutMock.class, new MiddlewareUtilMock());
-            FaxEnrollmentController.saveRec(faxString, true);
-            Fax_Enrollment__c fakeFax = FaxEnrollmentController.instantiateFax(recTypeBTH);
-            FaxEnrollmentController.EncounterWrapper enc = new FaxEnrollmentController.EncounterWrapper();
-            System.debug('xxx abc enc ' + enc);
-            System.assert(enc != null, 'EncounterWrapper should not be null');
+            Id recTypeBTH = Schema.SObjectType.Fax_Enrollment__c.getRecordTypeInfosByName().get('BTH Enrollments').getRecordTypeId();        
+            Fax_Enrollment__c shellFax = FaxEnrollmentController.instantiateFax(recTypeBTH);
         Test.stopTest();
-    }   
+        System.assert(JSON.serialize(shellFax).startsWith('{"attributes":{"type":"Fax_Enrollment__c"},'), 'should be valid fax enrollment record');
+    }
+
+    static testmethod void EncounterWrapper() {
+        Test.startTest();
+            FaxEnrollmentController.EncounterWrapper enc = new FaxEnrollmentController.EncounterWrapper();
+        Test.stopTest();  
+        System.assertEquals(JSON.serialize(enc), '{"EncounterNumber":null}', 'EncounterWrapper should equal  {"EncounterNumber":null}');
+    }
+
+    static testmethod void EnrollmentWrapper() {
+        Test.startTest();
+            FaxEnrollmentController.EnrollmentWrapper enc = new FaxEnrollmentController.EnrollmentWrapper();
+        Test.stopTest();    
+        System.assertEquals(JSON.serialize(enc),  '{"EnrollmentNumber":null}', 'EnrollmentWrapper should equal {"EnrollmentNumber":null}');
+    }
     
     static testmethod void createINRDraftCase() {
 
-        Account acc = new Account(
-            Name = 'ABC123',
-            Backend_ID__c = 'L-12713'          
-        );
-        insert acc;
-
-        Fax_Enrollment__c fax = new Fax_Enrollment__c(
-            Patient_First_Name__c = 'ABC123',
-            Practice_Location__c = acc.Id, 
-            Patient_Last_Name__c = 'ABC123', 
-            Patient_Date_of_Birth__c = Date.today() - 35,
-            Submission_Id__c = 'submissionId'            
-        );
-        Insert fax; 
-
+        Fax_Enrollment__c fax = getTestFaxRecord();
 
         Test.startTest();
             Case testCase = FaxEnrollmentController.createInrDraftCase(fax);
@@ -89,21 +52,7 @@ public with sharing class FaxEnrollmentControllerTest {
     
     static testmethod void createBTHDraftCase() {
 
-        Account acc = new Account(
-            Name = 'ABC123',
-            Backend_ID__c = 'L-12713'          
-        );
-        insert acc;
-
-        Fax_Enrollment__c fax = new Fax_Enrollment__c(
-            Patient_First_Name__c = 'ABC123',
-            Practice_Location__c = acc.Id, 
-            Patient_Last_Name__c = 'ABC123', 
-            Patient_Date_of_Birth__c = Date.today() - 35,
-            Submission_Id__c = 'submissionId'            
-        );
-        Insert fax; 
-
+        Fax_Enrollment__c fax = getTestFaxRecord();
 
         Test.startTest();
             Case testCase = FaxEnrollmentController.createBTHDraftCase(fax);
@@ -149,106 +98,81 @@ public with sharing class FaxEnrollmentControllerTest {
             System.assertEquals(recordTypes.size(), 2, 'Should be 2 record types');
         Test.stopTest();
     }     
-    static testmethod void test2() {
-        Middleware_Settings__c setting = new Middleware_Settings__c();
-        setting.clientId__c = 'aaa';
-        setting.clientSecret__c = 'bbb';
-        setting.tokenEndPoint__c = 'AuthGood';
-        setting.endpoint__c = 'Controller';
-        insert setting;
+    static testmethod void getFaxEnrollment() {
 
-        Account acc = new Account(
-            Name = 'ABC123',
-            Backend_ID__c = 'L-12713'          
-        );
-        insert acc;
-
-        Fax_Enrollment__c fax = new Fax_Enrollment__c(
-            Patient_First_Name__c = 'ABC123',
-            Practice_Location__c = acc.Id, 
-            Patient_Last_Name__c = 'ABC123', 
-            Patient_Date_of_Birth__c = Date.today() - 35,
-            Submission_Id__c = 'submissionId'            
-        );
-        Insert fax; 
+        Fax_Enrollment__c fax = getTestFaxRecord();
 
         Test.startTest();
             Test.setMock(HttpCalloutMock.class, new MiddlewareUtilMock());
-            FaxEnrollmentController.getFaxEnrollment(fax.Id);
-            System.assertEquals(true, true);
+            Fax_Enrollment__c testFax = FaxEnrollmentController.getFaxEnrollment(fax.Id);
         Test.stopTest();
+        System.assertEquals(fax.Id, testFax.Id, 'should return a fax record');
+
     }
-    static testmethod void test3() {
-        Middleware_Settings__c setting = new Middleware_Settings__c();
-        setting.clientId__c = 'aaa';
-        setting.clientSecret__c = 'bbb';
-        setting.tokenEndPoint__c = 'AuthGood';
-        setting.endpoint__c = 'Controller';
-        insert setting;
+    static testmethod void callOtsBundleApi() {
 
         Test.startTest();
             Test.setMock(HttpCalloutMock.class, new MiddlewareUtilMock());
-            FaxEnrollmentController.callOtsBundleApi('ABC123', 'ABC123');
-            System.assertEquals(true, true);
+            List<MiddlewareUtil.Bundle> bundles = FaxEnrollmentController.callOtsBundleApi('ABC123', '3');
+            System.debug('xxx size ' +bundles.size());
         Test.stopTest();
+        System.assertEquals(3, bundles.size(), 'should return 3 records');
     }
-    static testmethod void test4() {
-        Middleware_Settings__c setting = new Middleware_Settings__c();
-        setting.clientId__c = 'aaa';
-        setting.clientSecret__c = 'bbb';
-        setting.tokenEndPoint__c = 'AuthGood';
-        setting.endpoint__c = 'Controller';
-        insert setting;
+    static testmethod void getPhysicians() {
 
         Test.startTest();
             Test.setMock(HttpCalloutMock.class, new MiddlewareUtilMock());
-            FaxEnrollmentController.callPhysicianApi('ABC123');
+            List<MiddlewareUtil.Physician> physicians = FaxEnrollmentController.callPhysicianApi('ABC123');
         Test.stopTest();
+        System.assertEquals(3, physicians.size(), 'should return 3 records');
     }
 
     static testmethod void testGetConfirmationNbr() {
 
 
-        Account acc = new Account(
-            Name = 'ABC123',
-            Backend_ID__c = 'L-12713'          
-        );
-        insert acc;
+        Fax_Enrollment__c fax = getTestFaxRecord();
+        System.debug('xxx testFax ' + fax);
+        Test.startTest();
+            Test.setMock(HttpCalloutMock.class, new MiddlewareUtilMock());
+            String response = FaxEnrollmentController.getConfirmationNbr('f11c0e8e-2e69-40d9-be0e-a7c2385b7e0', fax.Id);
+            System.debug('xxx response ' + response);
+        Test.stopTest();
+        List<String> responseArray = response.split(',');
+        System.assertEquals(3, responseArray.size(), 'response should contain 3 values');
+    }
+     static testmethod void getPLBackendId() {
 
-        Fax_Enrollment__c fax = new Fax_Enrollment__c(
-            Patient_First_Name__c = 'ABC123',
-            Practice_Location__c = acc.Id, 
-            Patient_Last_Name__c = 'ABC123', 
-            Patient_Date_of_Birth__c = Date.today() - 35,
-            Submission_Id__c = 'submissionId'            
-        );
-        Insert fax; 
+        Account acc = [SELECT Name, Backend_ID__c FROM Account LIMIT 1];          
 
         Test.startTest();
             Test.setMock(HttpCalloutMock.class, new MiddlewareUtilMock());
-            FaxEnrollmentController.getConfirmationNbr('submissionId', fax.Id);
-
-            System.assertEquals(true, true);
+            String backendId = FaxEnrollmentController.getPLBackendId(acc.Id);
         Test.stopTest();
+        System.assertEquals('L-11111', backendId, 'backendId should equal L-11111');
     }
-     static testmethod void test6() {
+
+    static Fax_Enrollment__c getTestFaxRecord(){
+        return [ SELECT Practice_Location__c, RecordTypeId, Results_Phone__c, Ordering_Physician__c, Results_Fax_Number__c, Notifying_Physician__c, Payer_Info__c, Payer_Id__c, Visit_Date__c, STAT__c, Fax_Date__c, Service_Type__c, Enrollment_Number__c, Encounter_Number__c, Device_Source__c, Diagnosis_Code_Text__c, Enrollment_Duration__c, Testing_Frequency__c, Training_Type__c, Billing_Status_Text__c, Submission_Id__c, Status__c, Low__c, High__c, Below__c, Above__c, Patient_First_Name__c, Patient_Last_Name__c, Patient_Date_of_Birth__c, Patient_Gender__c, Patient_Home_Phone__c, Billing_Street__c, Billing_Postal_Code_Text__c, Billing_City__c, Billing_State__c, Shipping_Street__c, Shipping_Postal_Code_Text__c, Shipping_City__c, Shipping_State__c, LanguageId__c, Payer_not_in_List__c, Policy_ID__c, Payer_Name__c, Email__c, Guarantor_Relationship_to_Patient__c, Billing_Postal_Code__c, Diagnosis_Code__c, Billing_Status__c
+        FROM Fax_Enrollment__c LIMIT 1]; 
+
+    }
+    
+    @testSetup private static void setup() {
+        Account practiceLocation = new Account(
+          Name = 'Practice Location',
+          Backend_ID__c = 'L-11111'          
+        );
+        insert practiceLocation;
+
+        Id recTypeBTH = Schema.SObjectType.Fax_Enrollment__c.getRecordTypeInfosByName().get('BTH Enrollments').getRecordTypeId();
+
+        List<Fax_Enrollment__c> faxEnrollmentList = TestData.buildFaxEnrollmentList(1, recTypeBTH, 'MCT');
+
         Middleware_Settings__c setting = new Middleware_Settings__c();
         setting.clientId__c = 'aaa';
         setting.clientSecret__c = 'bbb';
         setting.tokenEndPoint__c = 'AuthGood';
         setting.endpoint__c = 'Controller';
-        insert setting;
-
-        Account acc = new Account(
-            Name = 'ABC123',
-            Backend_ID__c = 'L-12713'          
-        );
-        insert acc;
-
-        Test.startTest();
-            Test.setMock(HttpCalloutMock.class, new MiddlewareUtilMock());
-            FaxEnrollmentController.getPLBackendId(acc.Id);
-            System.assertEquals(true, true);
-        Test.stopTest();
-    }   
+        insert setting;   
+      }     
 }

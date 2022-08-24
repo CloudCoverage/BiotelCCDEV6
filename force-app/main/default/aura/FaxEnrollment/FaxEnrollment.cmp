@@ -52,6 +52,7 @@
     <aura:attribute name="draft" type="Boolean" default="false" />
     <aura:attribute name="draftEnrollmentFeature" type="Boolean" default="true" />
     <aura:attribute name="policyIdRequired" type="Boolean" default="true" />
+    <aura:attribute name="eventDeviceTypeRequired" type="Boolean" default="false" />
 
 
     <aura:attribute name="practiceLocationId" type="String" />
@@ -94,8 +95,6 @@
     <aura:attribute name="statuses" type="List" />
 
     <lightning:spinner aura:id="spinner" alternativeText="" variant="brand" size="large" />
-
-
 
     <!-- Model Box Start -->
     <aura:if isTrue="{!v.isModalOpen}">
@@ -276,10 +275,10 @@
                             <aura:if isTrue="{!v.showDeviceType}">
 
                                 <lightning:select value="{!v.fax.Event_Device_Type__c}" label="Event Device Type"
-                                    aura:id="formId" disabled="{!!v.editing}" required="{!v.isInrRequiredFields}"
+                                    aura:id="evType" disabled="{!!v.editing}" 
+                                    required="{!or(v.isInrRequiredFields,v.eventDeviceTypeRequired)}"
                                     class="field"
                                     onchange="{!c.deviceTypeChange}">
-                                    <option value=""></option>
                                     <aura:iteration items="{!v.oEventDeviceType}" var="item">
                                         <option value="{!item.value}">{!item.label}</option>
                                     </aura:iteration>
@@ -298,15 +297,20 @@
                     <div class="slds-size_1-of-3 slds-p-around_xx-small">
                         <aura:if isTrue="{!v.editing}">
                             <aura:if isTrue="{!v.showOTS}">
-                                <lightning:select name="ob" label="OTS Device Serial Number" aura:id="formId"
-                                    value="{!v.fax.OTS_Device__c}" disabled="{!!v.editing}"
-                                    required="{!v.isInrRequiredFields}" class="field">
-                                    <option value=""></option>
-                                    <aura:iteration items="{!v.otsBundle}" var="item">
-                                        <option value="{!item.Id}" selected="{!item.Id == v.fax.OTS_Device__c}"
-                                            text="{!item.DeviceTypeName + ' - ' + item.DeviceSerialNumber }" />
-                                    </aura:iteration>
-                                </lightning:select>
+                        <lightning:select name="ob" 
+                            label="OTS Device Serial Number" 
+                            aura:id="formId" 
+                            value="{!v.fax.OTS_Device__c}" 
+                            disabled="{!!v.editing}"
+                            required="{!v.isInrRequiredFields}" 
+                            class="{!v.reqSubmit}"> 
+                            <option value=""></option>
+                            <aura:iteration items="{!v.otsBundle}" var="item">
+                                <option value="{!item.Id}"
+                                selected="{!item.Id == v.fax.OTS_Device__c}"
+                                text="{!item.DeviceTypeName + ' - ' + item.DeviceSerialNumber }"/>
+                            </aura:iteration>
+                        </lightning:select>
                             </aura:if>
                             <aura:set attribute="else">
                                 <aura:if isTrue="{!v.showOTS}">

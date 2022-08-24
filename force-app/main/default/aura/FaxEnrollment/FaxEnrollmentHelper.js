@@ -16,8 +16,6 @@
                 this.hideSpinner(c); 
                 var fax = response.getReturnValue();
                 c.set("v.fax", fax);
-                console.log(JSON.stringify(fax))
-                console.log(JSON.stringify(fax.Draft_Reason__c))
                 
                 c.set("v.recTypeId", fax.RecordTypeId);
                 h.getFeatureFlagHelper(c, fax.RecordTypeId);
@@ -54,12 +52,12 @@
                 if(fax.OTS_Device__c != null || fax.Device_Source__c == 'OTS'){
                     c.set("v.showOTS", true);
                 }
-                if(fax.Service_Type__c == 'EVENT' && fax.Device_Source__c == 'MTP'){
+                if(fax.Service_Type__c == 'EVENT'){
                     c.set("v.showDeviceType", "true");
                 } else {
                     c.set("v.showDeviceType", "false");
                 }                
-                if(fax.Status__c != 'Submitted' ){
+                if(fax.Status__c != 'Submitted' && fax.Status__c != 'Cancelled'){
                     c.set("v.editing", true);
                 }else{
                     c.set("v.editing", false);
@@ -71,7 +69,7 @@
                 if(!fax.Status__c && fax.Submission_Id__c){
                     c.set("v.editing", false);
                 }
-
+                this.setDeviceTypeRequired(c,fax.Device_Source__c, fax.Service_Type__c)
 
                 c.set("v.plBackendId", fax.Practice_Location__r.Backend_ID__c);
                 this.getOtsBundleHelper(c, e, h);
@@ -183,17 +181,17 @@
         $A.enqueueAction(action);
     },    
 
-    getOtsBundleHelper : function(c, e, h) {
+    getOtsBundleHelper : function(cmp, event, helper) {
 
-        let backendId = c.get("v.plBackendId");
-        let serviceType = c.get("v.fax.Service_Type__c");
-        let deviceType = c.get("v.fax.Event_Device_Type__c");
+        let backendId = cmp.get("v.plBackendId");
+        let serviceType = cmp.get("v.fax.Service_Type__c");
+        let deviceType = cmp.get("v.fax.Event_Device_Type__c");
         let serviceTypeId = deviceType && deviceType == 'Chest Plate' ? '1' : '3'
-        console.log('in h.getOtsBundleHelper backendId '+ backendId);
-
+        console.log('in getOtsBundleHelper backendId '+ backendId);
+    
         if(backendId != null && serviceType != null && serviceType != 'INR'){
             var state;
-            var action = c.get("c.callOtsBundleApi");
+            var action = cmp.get("c.callOtsBundleApi");
     
             action.setParams({
                 "backendId": backendId,
@@ -214,14 +212,14 @@
                         return t1? 0: (sortAsc?-1:1)*(t2?1:-1);
                     });
                     //sort end
-                    c.set("v.otsBundle", bundle);                 
-                    console.log('xxx bundle ' + JSON.stringify(bundle));
+                    cmp.set("v.otsBundle", bundle);                 
                 }
             });
             $A.enqueueAction(action);
     
         }
     },    
+    
 
     checkForChanges: function(cmp) {  
 
@@ -413,6 +411,11 @@
         delete fax.Billing_Status__r;
 
         //2019-04-29T00:00:00.000Z
+
+        if(fax.Patient_Date_of_Birth__c){
+            fax.Patient_Date_of_Birth_Text__c = moment(fax.Patient_Date_of_Birth__c ).format('M/D/YYYY')
+        }
+
         if(fax.Patient_Date_of_Birth__c && fax.Patient_Date_of_Birth__c.includes("/")){
             fax.Patient_Date_of_Birth__c =  moment(fax.Patient_Date_of_Birth__c ).format('YYYY-MM-DD');
         }
@@ -425,7 +428,7 @@
             fax.Fax_Date__c =  moment(fax.Fax_Date__c ).format('YYYY-MM-DD');
             }
         }
-        if(fax.OTS_Device__c != null){
+        if(fax.OTS_Device__c != null && !draft){
             let ots = c.get("v.otsBundle");
             let ot = ots.find(x => x.Id == fax.OTS_Device__c);
             if(ot){
@@ -778,5 +781,13 @@
         });
         
         $A.enqueueAction(action);		
-    },     
+    },
+    setDeviceTypeRequired : function(cmp, deviceSource, serviceType) {
+        console.log('deviceSource ' +deviceSource)
+        console.log('serviceType ' +serviceType)
+
+        let requiredField = (deviceSource == 'OTS' && serviceType == 'EVENT')
+        console.log('requiredField ' +requiredField)
+        cmp.set("v.eventDeviceTypeRequired", requiredField)
+    }     
 })
